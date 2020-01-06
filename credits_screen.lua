@@ -1,32 +1,51 @@
 -----------------------------------------------------------------------------------------
 --
 -- credits_screen.lua
--- Created by: Hunter Connolly
--- Date: November 6, 2019
--- Description: This is the credits screen of the game.
+-- Created by: Nate Day
+-- Date: Nov. 16th, 2019
+-- Description: This is the credits page, displaying a back button.
 -----------------------------------------------------------------------------------------
 
--- Use Composer Library
+-----------------------------------------------------------------------------------------
+-- INITIALIZATIONS
+-----------------------------------------------------------------------------------------
+
+-- Use Composer Libraries
 local composer = require( "composer" )
+local widget = require( "widget" )
 
--- Use Widget Library
-local widget = require( "widget")
+-----------------------------------------------------------------------------------------
 
-
--- Name the Scene
+-- Naming Scene
 sceneName = "credits_screen"
-------------------------------------------------------------------------------------------
 
--- create Scene Object
-local scene = composer.newScene( sceneName )
+-- Creating Scene Object
+scene = composer.newScene( sceneName ) 
+
+
+-- load sound
+audio.loadSound()
 
 -----------------------------------------------------------------------------------------
---LOCAL FUNCTIONS
+-- LOCAL VARIABLES
+-----------------------------------------------------------------------------------------
+local bkg_image
+local backButton
+
+-----------------------------------------------------------------------------------------
+-- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
---Creating transition Function to when going to credits screen
-local function MainMenuTransition( )
-    composer.gotoScene( "main_menu", {effect = "slideRight", time = 500 })
+-- Creating Transitioning Function back to main menu
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "fromBottom", time = 1500})
+end
+
+
+local function click( touch )
+    if (touch.phase == "began") then
+        audio.play(mouseClick)
+    end
 end
 
 -----------------------------------------------------------------------------------------
@@ -38,51 +57,60 @@ function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-    --------------------------------------------------------------------------------------------
-    --BACKGROUND IMAGES
+
     -----------------------------------------------------------------------------------------
-    -- this is the background of the screen
-    bkg_image = display.newImage("Images/CreditsScreenHunterC.png")
+    -- BACKGROUND AND DISPLAY OBJECTS
+    -----------------------------------------------------------------------------------------
+
+    -- Insert the background image and set it to the center of the screen
+    bkg_image = display.newImageRect("Images/CreditsScreenHunterC.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
-    bkg_image.height = display.contentHeight   
+    bkg_image.height = display.contentHeight
 
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg_image )
 
     -- Send the background image to the back layer so all other objects can be on top
     bkg_image:toBack()
-    
-    --------------------------------------------------------------------------------------------
-    --BUTTON WIDGETS
-    -----------------------------------------------------------------------------------------
-
-    --Creating the play BUTTON
-    backButton = widget.newButton(
-        {
-            -- set the x and y position
-            x = display.contentWidth*0.2/2,
-            y = display.contentHeight*0.2/3,
-
-            -- insert the image
-            defaultFile = "Images/BackButtonUnpressedNate.png",
-            overFile = "Images/BackButtonPressedNate.png",
-
-            -- when the button is released it will go to the level 1 screen
-            onRelease = MainMenuTransition
-
-        })
-
 
     -----------------------------------------------------------------------------------------
+    -- BUTTON WIDGETS
+    -----------------------------------------------------------------------------------------
 
-    -- Associating button widgets with this scene
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*1/8,
+        y = display.contentHeight*1.8/16,
+
+        -- Setting Dimensions
+        width = 190,
+        height = 120,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButtonUnpressedNate.png",
+        overFile = "Images/BackButtonPressedNate.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- add mouse click sound
+    mouseClick = audio.loadSound("Sounds/patsound.mp3")
+
+
+    -- Associating Buttons with this scene
     sceneGroup:insert( backButton )
+    
+end --function scene:create( event )
 
-
-end -- function scene:create( event )
-
+-----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
@@ -96,16 +124,18 @@ function scene:show( event )
 
     -----------------------------------------------------------------------------------------
 
-    -- Called when the scene is still off screen (but is about to come on screen).
     if ( phase == "will" ) then
-       
+        -- Called when the scene is still off screen (but is about to come on screen).
+
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        
-                
+    
+
+     Runtime:addEventListener("touch", click)
     end
-end --function scene:show( event )
+
+end -- function scene:show( event )
 
 -----------------------------------------------------------------------------------------
 
@@ -114,23 +144,22 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    -----------------------------------------------------------------------------------------
+
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
-    -- Called when the scene is on screen (but is about to go off screen).
-    -- Insert code here to "pause" the scene.
-    -- Example: stop timers, stop animation, stop audio, etc.
-    if ( phase == "will" ) then  
-
+    if ( phase == "will" ) then
+        -- Called when the scene is on screen (but is about to go off screen).
+        -- Insert code here to "pause" the scene.
+        -- Example: stop timers, stop animation, stop audio, etc.
 
     -----------------------------------------------------------------------------------------
 
-    -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
-        
-  
-
+        -- Called immediately after scene goes off screen.
     end
 
 end --function scene:hide( event )
@@ -149,7 +178,8 @@ function scene:destroy( event )
     -- Called prior to the removal of scene's view ("sceneGroup").
     -- Insert code here to clean up the scene.
     -- Example: remove display objects, save state, etc.
-end -- function scene:destroy( event )
+
+end --function scene:destroy( event )
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
@@ -164,4 +194,3 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-
