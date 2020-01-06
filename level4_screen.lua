@@ -254,7 +254,8 @@ end
 local function MoveBirdDelay()
     bird.isVisible = true
     if (bird.x < display.contentWidth/2) then
-        birdScrollSpeedX = -birdScrollSpeedX        
+        birdScrollSpeedX = -birdScrollSpeedX   
+        bird.xScale = -1     
     end
     print ("***birdScrollSpeedX= " .. birdScrollSpeedX)
     print ("***birdScrollSpeedY= " .. birdScrollSpeedY)
@@ -577,7 +578,7 @@ function scene:create( event )
 
     --Creating the mute button
     muteButton = display.newImageRect("Images/MuteButtonUnpressedHunterC.png", 200, 200)
-    muteButton.x = 740
+    muteButton.x = 790
     muteButton.y = 120
     muteButton.isVisible = true
     muteButton.width = 75
@@ -587,7 +588,7 @@ function scene:create( event )
 
     --Creating the unmute button
     unmuteButton = display.newImageRect("Images/MuteButtonPressedHunterC.png", 200, 200)
-    unmuteButton.x = 740
+    unmuteButton.x = 790
     unmuteButton.y = 120
     unmuteButton.isVisible = false
     unmuteButton.width = 75
@@ -725,7 +726,7 @@ function scene:create( event )
     pauseButton = widget.newButton(
     {
         --setting the position
-        x = 740,
+        x = 790,
         y = 50,
 
         -- creating the button

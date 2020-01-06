@@ -39,6 +39,10 @@ local function Level2Transition( )
     composer.gotoScene( "level2_screen", {effect = "flipFadeOutIn", time = 500})
 end
 
+local function Level3Transition( )
+    composer.gotoScene( "level3_screen", {effect = "flipFadeOutIn", time = 500})
+end
+
 local function Level4Transition( )
     composer.gotoScene( "level4_screen", {effect = "flipFadeOutIn", time = 500})
 end
@@ -68,7 +72,7 @@ function scene:create( event )
    level1Button = widget.newButton(
         {
             -- set the x and y position
-            x = display.contentWidth*1/4,
+            x = display.contentWidth*0.5/4,
             y = display.contentHeight/2,
 
             -- insert the image
@@ -87,7 +91,7 @@ function scene:create( event )
    level2Button = widget.newButton(
         {
             -- set the x and y position
-            x = display.contentWidth/2,
+            x = display.contentWidth*1.5/4,
             y = display.contentHeight/2,
 
             -- insert the image
@@ -103,15 +107,33 @@ function scene:create( event )
    level2Button.height = 250
 
       -- Creating the level 2 button
-   level4Button = widget.newButton(
+   level3Button = widget.newButton(
         {
             -- set the x and y position
-            x = display.contentWidth*3/4,
+            x = display.contentWidth*2.5/4,
             y = display.contentHeight/2,
 
             -- insert the image
             defaultFile = "Images/Level3ButtonUnpressedHunter@2x.png",
             overFile = "Images/Level3ButtonPressedHunter@2x.png",
+
+            -- when the button is released it will go to the level 1 screen
+            onRelease = Level3Transition
+
+        })
+   
+   level3Button.width = 250
+   level3Button.height = 250
+
+   level4Button = widget.newButton(
+        {
+            -- set the x and y position
+            x = display.contentWidth*3.5/4,
+            y = display.contentHeight/2,
+
+            -- insert the image
+            defaultFile = "Images/Level4ButtonHunter@2x.png",
+            overFile = "Images/Level4ButtonPressedHunter@2x.png",
 
             -- when the button is released it will go to the level 1 screen
             onRelease = Level4Transition
@@ -144,6 +166,7 @@ function scene:create( event )
     sceneGroup:insert( backButton )
     sceneGroup:insert( level2Button )
     sceneGroup:insert( level1Button )
+    sceneGroup:insert( level3Button )
     sceneGroup:insert( level4Button )
 
 end -- function scene:create( event )

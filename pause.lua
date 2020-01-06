@@ -44,14 +44,18 @@ local function MainMenuTransition( )
     composer.gotoScene("main_menu", {effect = "slideRight", time = 500 })
 end
 
-local function BackToLevel2() 
+local function BackToLevel() 
     composer.hideOverlay("crossFade", 400 )
   
     ResumeLevel2()
 end 
 
 local function Level2Transition( )
-    composer.gotoScene("level2_screen")
+    if(currentLevel == 2)then
+        composer.gotoScene("level2_screen")
+    elseif(currentLevel == 4)then
+        composer.gotoScene("level4_screen")
+    end
 end
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
