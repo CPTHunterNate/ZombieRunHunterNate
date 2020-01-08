@@ -173,7 +173,7 @@ end
 
 local function DisplayQuestion()
     --creating random numbers
-    questionSelection = math.random (1,1)
+    questionSelection = math.random (1,4)
 
     if(questionSelection == 1) then
 
@@ -191,38 +191,38 @@ local function DisplayQuestion()
     elseif(questionSelection == 2)then
 
         --Making the question
-        questionText.text = "What is the part of the plant\nthat uses light to make food?"
+        questionText.text = "Which of these is a part\n of a Plant?"
 
-        answerText.text = "Jupiter"
+        answerText.text = "Stem"
 
         --creating wrong answers
-        wrongText1.text = "Mercury"
-        wrongText2.text = "Mars"
-        wrongText3.text = "Saturn"
+        wrongText1.text = "Stick"
+        wrongText2.text = "Oxygen"
+        wrongText3.text = "Sun"
     elseif(questionSelection == 3) then
 
         --making the question
-        questionText.text = "What Planet is Closest to\nthe sun?"
+        questionText.text = "The plant parts that take \nin water and minerals from the\nsoil are?"
 
         -- creating the answer
-        answerText.text = "Mercury"
+        answerText.text = "Roots"
 
         -- creating the wrong answer
-        wrongText1.text = "Venus"
-        wrongText2.text = "Uranus"
-        wrongText3.text = "Mars"
+        wrongText1.text = "Stem"
+        wrongText2.text = "Leaves"
+        wrongText3.text = "Flower"
     elseif(questionSelection == 4)then
 
         --Creating the question
-        questionText.text = "How many Planets are there\nin our Solor System?"
+        questionText.text = "What is the first stage in\nthe growth of many plants??"
 
         -- creating the answer
-        answerText.text = "8"
+        answerText.text = "Seeds"
 
         -- creating the wrong answer
-        wrongText1.text = "7"
-        wrongText2.text = "11"
-        wrongText3.text = "5"
+        wrongText1.text = "Oxygen"
+        wrongText2.text = "Water"
+        wrongText3.text = "Photosynthesis"
     elseif(questionSelection == 5)then
 
         --create the question

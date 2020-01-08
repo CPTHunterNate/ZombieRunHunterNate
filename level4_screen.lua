@@ -66,7 +66,7 @@ local character
 local heart1
 local heart2
 local heart3
-local numLives = 3
+local numLives = 20
 
 local rArrow 
 local uArrow
@@ -234,7 +234,7 @@ local function MoveZombies()
     zombie3.x = zombie3.x + zombie3ScrollSpeed
     if( zombie3.x > 1024)then
         zombie3ScrollSpeed = -zombie3ScrollSpeed
-    elseif(zombie3.x < 50)then
+    elseif(zombie3.x < 250)then
         zombie3ScrollSpeed = -zombie3ScrollSpeed
     end
 
@@ -254,12 +254,9 @@ local function MoveBird(event)
         Runtime:removeEventListener("enterFrame", MoveBird)
         timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
     end
-    print ("***bird.x = " .. bird.x)
-    print ("***bird.y = " .. bird.y)
 end
 
 function MoveBirdDelay()
-    print("***Called MoveBirdDelay")
     bird.x = math.random(0, display.contentWidth)
     bird.y = 0
     bird.isVisible = true
@@ -269,9 +266,6 @@ function MoveBirdDelay()
     elseif (bird.x > display.contentWidth/2)then
         bird.xScale = 1
     end
-    print ("***birdScrollSpeedX= " .. birdScrollSpeedX)
-    print ("***birdScrollSpeedY= " .. birdScrollSpeedY)
-    print ("***bird.x = " .. bird.x)
     Runtime:addEventListener("enterFrame", MoveBird)
 end
 
@@ -803,7 +797,7 @@ function scene:show( event )
         bird.y = 0
         bird.isVisible = false
 
-        numLives = 2
+        numLives = 3
         questionsAnswered = 0
         currentLevel = 4
         bkgMusicChannel = audio.play( bkgMusic, {channel = 1, loops = -1} )
