@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- level1_screen.lua
+-- level3_screen.lua
 -- Created by: Nate Day
 -- Date: Nov. 19, 2019
 -- Description: This is the level 1 screen of the game.
@@ -16,7 +16,6 @@
 -----------------------------------------------------------------------------------------
 
 
-
 -- Use Composer Libraries
 local composer = require( "composer" )
 local widget = require( "widget" )
@@ -27,7 +26,7 @@ local physics = require("physics")
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "level1_screen"
+sceneName = "level3_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -47,6 +46,8 @@ local sound1 = audio.loadSound("Sounds/YouWinSound.wav")
 local sound2 = audio.loadSound("Sounds/YouLoseSound.wav")
 local sound3 = audio.loadSound("Sounds/zombiesound.wav")
 local sound4 = audio.loadSound("Sounds/keysound.wav")
+local sound5 = audio.loadSound("Sounds/Bubbles.wav")
+
 
 
 local bkg_image
@@ -59,14 +60,20 @@ local platform4
 local zombie1
 local zombie2
 local zombie3
+local zombie4
 
-local zombie1platform
+local bubbles1
+local bubbles2
+local bubbles3
+
+--local zombie1platform
 local zombie2platform
 local zombie3platform
 
 local torchesAndSign
 local portal
 local character
+local shark
 
 local heart1
 local heart2
@@ -83,7 +90,7 @@ local _SPEED = -9
 local SPEED = 9
 
 local LINEAR_VELOCITY = -250
-local GRAVITY = 23
+local GRAVITY = 10
 
 local leftW 
 local rightW 
@@ -103,6 +110,10 @@ local scrollXSpeed = -7
 local scrollSpeed1 = -1
 local scrollSpeed2 = 0.6
 local scrollSpeed3 = 2
+local scrollSpeed4 = 2
+local scrollSpeed5 = 4
+
+local scrollSpeedY = 2
 
 
 -----------------------------------------------------------------------------------------
@@ -141,6 +152,82 @@ local function stop (event)
     end
 end
 
+local function ReplaceShark()
+    shark.x = display.contentWidth * 0.2 / 8
+    shark.y = display.contentHeight  * 2.6/ 3
+
+    -- prevent character from being able to tip over
+    shark.isFixedRotation = true
+end
+
+local function MoveShark(event)
+-- add the scroll speed to the x-value of the character
+    shark.alpha = 1 
+    shark.x = shark.x + scrollSpeed5
+
+
+    -- this makes the image respond to hitting a wall
+    if (shark.x < 1) then 
+        shark.x = shark.x + 3 scrollSpeed5 = -scrollSpeed5
+    end
+
+    if(shark.x > 1200) then 
+        --shark.isVisible = false
+       timer.performWithDelay(20000, ReplaceShark) 
+    end
+end
+
+local function BubblesSound()
+    audio.play(sound5)
+end
+
+-- make a function that fades in building GAMES
+local function FadeBubbles(event)
+    
+    -- change the transparency of the ship every time it moves so that it fades in
+    bubbles1.alpha = bubbles1.alpha + 0.01
+   -- bubbles2.alpha = bubbles2.alpha + 0.01
+   -- bubbles3.alpha = bubbles3.alpha + 0.01    
+end
+
+-- Function: Moveship
+-- Input: this function accepts an event listener
+-- Output: None
+-- Description: This function adds the scroll speed to the x-value of the ship
+local function MoveBubbles1(event)
+    -- add the scroll speed to the x-value of the ship
+    bubbles1.y = bubbles1.y - scrollSpeedY
+    -- change the transparency of the ship every time it moves so that it fades out
+    bubbles1.alpha = bubbles1.alpha - 0.01
+    timer.performWithDelay( 1700, FadeBubbles)
+end
+
+
+-- Function: Moveship
+-- Input: this function accepts an event listener
+-- Output: None
+-- Description: This function adds the scroll speed to the x-value of the ship
+local function MoveBubbles2(event)
+    -- add the scroll speed to the x-value of the ship
+    bubbles2.y = bubbles2.y - scrollSpeedY
+    -- change the transparency of the ship every time it moves so that it fades out
+    bubbles2.alpha = bubbles2.alpha - 0.005
+    timer.performWithDelay( 1700, FadeBubbles)
+end
+
+-- Function: Moveship
+-- Input: this function accepts an event listener
+-- Output: None
+-- Description: This function adds the scroll speed to the x-value of the ship
+local function MoveBubbles3(event)
+    -- add the scroll speed to the x-value of the ship
+    bubbles3.y = bubbles3.y - scrollSpeedY
+    -- change the transparency of the ship every time it moves so that it fades out
+    bubbles3.alpha = bubbles3.alpha - 0.00001
+    timer.performWithDelay( 1700, FadeBubbles)
+end
+
+
 -- Function: move zombie
 
 local function MoveZombie1(event)
@@ -151,11 +238,11 @@ local function MoveZombie1(event)
 
     -- I got the base of this information from stackoverflow how to make multiple objects bounce around in Corona sdk
     -- this makes the image respond to hitting a wall
-    if (zombie1.x < 480) then 
+    if (zombie1.x < 530) then 
         zombie1.x = zombie1.x + 3 scrollSpeed3 = -scrollSpeed3
     end
 
-    if(zombie1.x > 624) then 
+    if(zombie1.x > 650) then 
         zombie1.x = zombie1.x - 3 scrollSpeed3 = -scrollSpeed3
     end
 end
@@ -171,15 +258,14 @@ local function MoveZombie2(event)
 
     -- I got the base of this information from stackoverflow how to make multiple objects bounce around in Corona sdk
     -- this makes the image respond to hitting a wall
-    if (zombie2.x < 170) then 
+    if (zombie2.x < 0) then 
         zombie2.x = zombie2.x + 3 scrollSpeed2 = -scrollSpeed2
     end
 
-    if(zombie2.x > 350) then 
+    if(zombie2.x > 600) then 
         zombie2.x = zombie2.x - 3 scrollSpeed2 = -scrollSpeed2
     end
 end
-
 
 -- Function: move zombie
 
@@ -191,14 +277,35 @@ local function MoveZombie3(event)
 
     -- I got the base of this information from stackoverflow how to make multiple objects bounce around in Corona sdk
     -- this makes the image respond to hitting a wall
-    if (zombie3.x < 890) then 
+    if (zombie3.x < 438) then 
         zombie3.x = zombie3.x + 3 scrollSpeed1 = -scrollSpeed1
     end
 
-    if(zombie3.x > 1000) then 
+    if(zombie3.x > 542) then 
         zombie3.x = zombie3.x - 3 scrollSpeed1 = -scrollSpeed1
     end
 end
+
+local function MoveZombie4(event)
+-- add the scroll speed to the x-value of the character
+    zombie4.alpha = 1 
+    zombie4.x = zombie4.x + scrollSpeed4
+
+
+    -- I got the base of this information from stackoverflow how to make multiple objects bounce around in Corona sdk
+    -- this makes the image respond to hitting a wall
+    if (zombie4.x < 1) then 
+        zombie4.x = zombie4.x + 3 scrollSpeed4 = -scrollSpeed4
+        --MoveShark()
+
+    end
+
+    if(zombie4.x > 1000) then 
+        zombie4.x = zombie4.x - 3 scrollSpeed4 = -scrollSpeed4
+        MoveShark()
+    end
+end
+
 
 
 -- Function: Move portal
@@ -224,18 +331,26 @@ end
 local function AddRuntimeListeners()
     Runtime:addEventListener("enterFrame", movePlayer)
     Runtime:addEventListener("touch", stop )
+    Runtime:addEventListener("enterFrame", MoveShark)
+    Runtime:addEventListener("enterFrame", MoveBubbles1)
+    Runtime:addEventListener("enterFrame", MoveBubbles2)
+    Runtime:addEventListener("enterFrame", MoveBubbles3)
 end
 
 local function RemoveRuntimeListeners()
     Runtime:removeEventListener("enterFrame", movePlayer)
     Runtime:removeEventListener("touch", stop )
+    Runtime:removeEventListener("enterFrame", MoveShark)
+    Runtime:removeEventListener("enterFrame", MoveBubbles1)
+    Runtime:removeEventListener("enterFrame", MoveBubbles2)
+    Runtime:removeEventListener("enterFrame", MoveBubbles3)
 end
 
 
 local function ReplaceCharacter()
     character = display.newImageRect("Images/Character1@2x.png", 60, 120)
-    character.x = display.contentWidth * 0.5 / 8
-    character.y = display.contentHeight  * 0.1 / 3
+    character.x = display.contentWidth * 7.4 / 8
+    character.y = display.contentHeight  * 0.2/ 3
     character.width = 80
     character.height = 120
     character.myName = "Bob"
@@ -257,6 +372,7 @@ local function ReplaceCharacter()
 end
 
 
+
 local function MakeSoccerBallsVisible()
     key1.isVisible = true
     key2.isVisible = true
@@ -274,20 +390,15 @@ local function YouLoseTransition()
 end
 
 local function YouWinTransition()
-    composer.gotoScene( "you_win" )
+    composer.gotoScene( "level4_screen" )
 end
 
-local function Level3Transition()
-    composer.gotoScene( "level2_screen" )
-end
+--local function Level4Transition()
+    --composer.gotoScene( "level4_screen" )
+--end
 
 local function onCollision( self, event )
-    -- for testing purposes
-    --print( event.target )        --the first object in the collision
-    --print( event.other )         --the second object in the collision
-    --print( event.selfElement )   --the element (number) of the first object which was hit in the collision
-    --print( event.otherElement )  --the element (number) of the second object which was hit in the collision
-    --print( event.target.myName .. ": collision began with " .. event.other.myName )
+
 
     if ( event.phase == "began" ) then
 
@@ -297,7 +408,9 @@ local function onCollision( self, event )
 
         if  (event.target.myName == "zombie1") or 
             (event.target.myName == "zombie2") or
-            (event.target.myName == "zombie3") then
+            (event.target.myName == "zombie3") or
+            (event.target.myName == "shark") or
+            (event.target.myName == "zombie4") then
 
             -- add sound effect here
             audio.play(sound3)
@@ -313,19 +426,21 @@ local function onCollision( self, event )
             -- decrease number of lives
             numLives = numLives - 1
 
-             if (numLives == 2) then
+            if (numLives == 2) then
                 -- update hearts
                 heart1.isVisible = true
                 heart2.isVisible = true
                 heart3.isVisible = false
-
+                ReplaceShark()
                 timer.performWithDelay(200, ReplaceCharacter) 
+
 
             elseif (numLives == 1) then
                 -- update hearts
                 heart1.isVisible = true
                 heart2.isVisible = false
                 heart3.isVisible = false
+                ReplaceShark()
 
                 timer.performWithDelay(200, ReplaceCharacter) 
 
@@ -334,6 +449,8 @@ local function onCollision( self, event )
                 heart1.isVisible = false
                 heart2.isVisible = false
                 heart3.isVisible = false
+                ReplaceShark()
+
                 audio.play(sound2)
                 timer.performWithDelay(200, YouLoseTransition)
             end
@@ -345,7 +462,6 @@ local function onCollision( self, event )
 
             -- get the key that the user hit
             theKey = event.target
-            print ("***event.target.myName = " .. event.target.myName)
 
             -- add sound effect here
             audio.play(sound4)
@@ -357,7 +473,7 @@ local function onCollision( self, event )
             character.isVisible = false
 
             -- show overlay with math question
-            composer.showOverlay( "level1_question", { isModal = true, effect = "fade", time = 100})
+            composer.showOverlay( "level3_question", { isModal = true, effect = "fade", time = 100})
 
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
@@ -370,7 +486,7 @@ local function onCollision( self, event )
             if (questionsAnswered == 3) then
                 -- after getting 3 questions right, go to the you win screen
                 --check to see if the user has answered 5 questions
-                timer.performWithDelay( 200, Level3Transition )
+                timer.performWithDelay( 200, YouWinTransition )
                 audio.play(sound1)
             end
         end        
@@ -392,6 +508,10 @@ local function AddCollisionListeners()
     zombie2:addEventListener( "collision" )
     zombie3.collision = onCollision
     zombie3:addEventListener( "collision" )
+    zombie4.collision = onCollision
+    zombie4:addEventListener( "collision" )
+    shark.collision = onCollision
+    shark:addEventListener( "collision" )
 
     -- if character collides with key, onCollision will be called    
     key1.collision = onCollision
@@ -406,10 +526,12 @@ local function AddCollisionListeners()
 end
 
 local function RemoveCollisionListeners()
-    print ("***Level1: Called RemoveCollisionListeners")
+   -- print ("***Level3: Called RemoveCollisionListeners")
     zombie1:removeEventListener( "collision" )
     zombie2:removeEventListener( "collision" )
     zombie3:removeEventListener( "collision" )
+    zombie4:removeEventListener( "collision" )
+    shark:removeEventListener( "collision" )
 
     key1:removeEventListener( "collision" )
     key2:removeEventListener( "collision" )
@@ -429,8 +551,10 @@ local function AddPhysicsBodies()
     physics.addBody( zombie1, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( zombie2, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( zombie3, "static", { density=1.0, friction=0.3, bounce=0.2 } )    
+    physics.addBody( zombie4, "static", { density=1.0, friction=0.3, bounce=0.2 } )    
+    physics.addBody( shark, "static", { density=1.0, friction=0.3, bounce=0.2 } )    
 
-    physics.addBody( zombie1platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
+    --physics.addBody( zombie1platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( zombie2platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( zombie3platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
 
@@ -448,7 +572,7 @@ local function AddPhysicsBodies()
 end
 
 local function RemovePhysicsBodies()
-    print ("***Level1: Called RemovePhysicsBodies")
+    --print ("***Level 3: Called RemovePhysicsBodies")
     physics.removeBody(platform1)
     physics.removeBody(platform2)
     physics.removeBody(platform3)
@@ -457,8 +581,10 @@ local function RemovePhysicsBodies()
     physics.removeBody(zombie1)
     physics.removeBody(zombie2)
     physics.removeBody(zombie3)
+    physics.removeBody(zombie4)
+    physics.removeBody(shark)
 
-    physics.removeBody(zombie1platform)
+    --physics.removeBody(zombie1platform)
     physics.removeBody(zombie2platform)
     physics.removeBody(zombie3platform)
 
@@ -473,7 +599,7 @@ end
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
-function ResumeGame()
+function ResumeGameLevel3()
 
     -- make character visible again
     character.isVisible = true
@@ -501,18 +627,18 @@ function scene:create( event )
     pauseButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*14.5/16,
-            y = display.contentHeight*0.5/8,
+            x = display.contentWidth*1/16,
+            y = display.contentHeight*0.3/8,
             
             -- Setting Dimensions
-            width = 200,
-            height = 100,
+            width = 80,
+            height = 50,
 
             -- Insert the images here
             defaultFile = "Images/PauseButtonUnpressed.png",
             overFile = "Images/PauseButtonPressedHunter.png", 
 
-            -- When the button is released, call the Level1 screen transition function
+            -- When the button is released, call the Level3 screen transition function
             onRelease = PauseScreenTransition
             
         } )
@@ -520,7 +646,7 @@ function scene:create( event )
     sceneGroup:insert( pauseButton )
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images/Level1ScreenNate@2x.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/Level3ScreenNate@2x.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentWidth / 2 
     bkg_image.y = display.contentHeight / 2
 
@@ -530,107 +656,105 @@ function scene:create( event )
     bkg_image:toBack()    
     
     -- Insert the platforms
-    platform1 = display.newImageRect("Images//Level1PlatformHunter.png", 200, 50)
-    platform1.x = display.contentWidth * 2 / 8
+    platform1 = display.newImageRect("Images//Level3platformNate@2x.png", 150, 50)
+    platform1.x = display.contentWidth * 0.6 / 8
     platform1.y = display.contentHeight * 1.6 / 4
         
     sceneGroup:insert( platform1 )
 
-    platform2 = display.newImageRect("Images//Level1PlatformHunter.png", 150, 50)
+    platform2 = display.newImageRect("Images//Level3platformNate@2x.png", 150, 50)
     platform2.x = display.contentWidth /2.1
     platform2.y = display.contentHeight * 1.2 / 4
         
     sceneGroup:insert( platform2 )
 
-    platform3 = display.newImageRect("Images//Level1PlatformHunter.png", 180, 50)
-    platform3.x = display.contentWidth *2.7 / 5
-    platform3.y = display.contentHeight * 3.0 / 5
+    platform3 = display.newImageRect("Images//Level3platformNate@2x.png", 180, 50)
+    platform3.x = display.contentWidth *2.9 / 5
+    platform3.y = display.contentHeight * 3.12 / 5
         
     sceneGroup:insert( platform3 )
 
-    platform4 = display.newImageRect("Images//Level1PlatformHunter.png", 100, 50)
+    platform4 = display.newImageRect("Images//Level3platformNate@2x.png", 100, 50)
     platform4.x = display.contentWidth *4.7 / 5
     platform4.y = display.contentHeight * 1.3 / 5
         
     sceneGroup:insert( platform4 )
 
-    zombie1 = display.newImageRect("Images/ZombieNate@2x.png", 70, 150)
-    zombie1.x = display.contentWidth * 3.9 / 8
-    zombie1.y = display.contentHeight * 2.38 / 5
+    zombie1 = display.newImageRect("Images/skeletonNate@2x.png", 70, 150)
+    zombie1.x = display.contentWidth * 5 / 8
+    zombie1.y = display.contentHeight * 2.5 / 5
     zombie1.myName = "zombie1"
         
     sceneGroup:insert( zombie1)
 
-    zombie1platform = display.newImageRect("Images//Level1PlatformHunter.png", 30, 125)
-    zombie1platform.x = display.contentWidth * 6.3 / 8
-    zombie1platform.y = display.contentHeight * 0.37 / 5
+    --zombie1platform = display.newImageRect("Images//Level3platformNate@2x.png", 30, 125)
+    --zombie1platform.x = display.contentWidth * 99 / 8
+    --zombie1platform.y = display.contentHeight * 0.37 / 5
         
-    sceneGroup:insert( zombie1platform)
+    --sceneGroup:insert( zombie1platform)
 
-    zombie2 = display.newImageRect("Images/ZombieNate@2x.png", 70, 150)
+    zombie2 = display.newImageRect("Images/skeletonNate@2x.png", 70, 150)
     zombie2.x = display.contentWidth * 2.18 / 8
-    zombie2.y = display.contentHeight * 1.37 / 5
+    zombie2.y = display.contentHeight * 4.5 / 5
     zombie2.myName = "zombie2"
         
     sceneGroup:insert( zombie2)
 
-    zombie2platform = display.newImageRect("Images//Level1PlatformHunter.png", 150, 50)
+    zombie2platform = display.newImageRect("Images//Level3platformNate@2x.png", 150, 50)
     zombie2platform.x = display.contentWidth * 0.72 / 8
     zombie2platform.y = display.contentHeight * 3.63 / 5
         
     sceneGroup:insert( zombie2platform)
 
-    zombie3 = display.newImageRect("Images/ZombieNate@2x.png", 70, 150)
-    zombie3.x = display.contentWidth * 7.3 / 8
-    zombie3.y = display.contentHeight * 2.87 / 5
+    zombie3 = display.newImageRect("Images/skeletonNate@2x.png", 70, 150)
+    zombie3.x = display.contentWidth * 4 / 8
+    zombie3.y = display.contentHeight * 0.88 / 5
     zombie3.myName = "zombie3"
         
     sceneGroup:insert( zombie3)
 
-    zombie3platform = display.newImageRect("Images/Level1PlatformHunter.png", 150, 50)
+    zombie3platform = display.newImageRect("Images/Level3platformNate@2x.png", 150, 50)
     zombie3platform.x = display.contentWidth * 7.3 / 8
     zombie3platform.y = display.contentHeight * 3.5 / 5
         
     sceneGroup:insert( zombie3platform)
 
-    -- Insert the torchesAndSign Objects
-    --torchesAndSign = display.newImageRect("Images/Level-1Random.png", display.contentWidth, display.contentHeight)
-    --torchesAndSign.x = display.contentCenterX
-    --torchesAndSign.y = display.contentCenterY + 10
-
-    -- Insert objects into the scene group in order to ONLY be associated with this scene
-    --sceneGroup:insert( torchesAndSign )
+    zombie4 = display.newImageRect("Images/skeletonNate@2x.png", 70, 150)
+    zombie4.x = display.contentWidth * 0.5 / 8
+    zombie4.y = display.contentHeight * -1 / 5
+    zombie4.myName = "zombie4"
+        
+    sceneGroup:insert( zombie4)
 
     -- Insert the portal
     portal = display.newImageRect("Images/PortalNate@2x.png", 170, 170)
-    portal.x = display.contentWidth/10
-    portal.y = display.contentHeight*6.1/7
+    portal.x = display.contentWidth *4.6 / 5
+    portal.y = display.contentHeight * 4.3 / 5
     portal.myName = "portal"
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( portal )
 
     -- Insert the Hearts
-    heart1 = display.newImageRect("Images/HeartNate@2x.png", 80, 80)
-    heart1.x = 50
-    heart1.y = 50
+    heart1 = display.newImageRect("Images/HeartHunter@2x.png", 50, 50)
+    heart1.x = 30
+    heart1.y = 75
     heart1.isVisible = true
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( heart1 )
 
-    heart2 = display.newImageRect("Images/HeartNate@2x.png", 80, 80)
-    heart2.x = 130
-    heart2.y = 50
+    heart2 = display.newImageRect("Images/HeartHunter@2x.png", 50, 50)
+    heart2.x = 70
+    heart2.y = 75
     heart2.isVisible = true
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( heart2 )
 
-
-    heart3 = display.newImageRect("Images/HeartNate@2x.png", 80, 80)
-    heart3.x = 210
-    heart3.y = 50
+    heart3 = display.newImageRect("Images/HeartHunter@2x.png", 50, 50)
+    heart3.x = 110
+    heart3.y = 75
     heart3.isVisible = true
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
@@ -700,8 +824,8 @@ function scene:create( event )
 
     --key2
     key2 = display.newImageRect ("Images/KeyObjectNate@2x.png", 70, 70)
-    key2.x = 490
-    key2.y = 170
+    key2.x = 940
+    key2.y = 480
     key2.myName = "key2"
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
@@ -709,12 +833,47 @@ function scene:create( event )
 
     --key3
     key3 = display.newImageRect ("Images/KeyObjectNate@2x.png", 70, 70)
-    key3.x = 963
-    key3.y = 130
+    key3.x = 50
+    key3.y = 250
     key3.myName = "key3"
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( key3 )
+
+    shark = display.newImageRect("Images/SharkNate@2x.png", 170, 130)
+    shark.x = display.contentWidth * 0 / 10
+    shark.y = display.contentHeight * 8.5 / 10
+    shark:scale(-1, 1)
+    shark.myName = "shark"
+    
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( shark )
+
+    --bubbles
+    bubbles1 = display.newImageRect ("Images/BubblesNate@2x.png", 30, 70)
+    bubbles1.x = 500
+    bubbles1.y = 50
+    bubbles1.myName = "bubbles1"
+
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( bubbles1 )
+
+    --bubbles
+    bubbles2 = display.newImageRect ("Images/BubblesNate@2x.png", 30, 70)
+    bubbles2.x = 650
+    bubbles2.y = 270
+    bubbles2.myName = "bubbles2"
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( bubbles2 )
+
+    --bubbles
+    bubbles3 = display.newImageRect ("Images/BubblesNate@2x.png", 30, 70)
+    bubbles3.x = 350
+    bubbles3.y = 650
+    bubbles3.myName = "bubbles3"
+
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( bubbles3 )
 end --function scene:create( event )
 
 -----------------------------------------------------------------------------------------
@@ -733,8 +892,7 @@ function scene:show( event )
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
         -- start physics
-        physics.start()
-
+        --physics.start()
 
     elseif ( phase == "did" ) then
 
@@ -760,9 +918,14 @@ function scene:show( event )
         -- create the character, add physics bodies and runtime listeners
         ReplaceCharacter()
 
+        ReplaceShark()
+
+        BubblesSound()
+
         Runtime:addEventListener("enterFrame", MoveZombie1)
         Runtime:addEventListener("enterFrame", MoveZombie2)
         Runtime:addEventListener("enterFrame", MoveZombie3)
+        Runtime:addEventListener("enterFrame", MoveZombie4)
         Runtime:addEventListener("enterFrame", SpinPortal)
       
     end
@@ -785,23 +948,25 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         -- Called immediately after scene goes off screen.
-        RemoveCollisionListeners()
-        RemovePhysicsBodies()
+        
+
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        
-
-        --physics.stop()
+        RemoveCollisionListeners()
+        RemovePhysicsBodies()
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
-
+        --physics.stop()
+        
         Runtime:removeEventListener("enterFrame", MoveZombie1)
         Runtime:removeEventListener("enterFrame", MoveZombie2)
         Runtime:removeEventListener("enterFrame", MoveZombie3)
+        Runtime:removeEventListener("enterFrame", MoveZombie4)
         Runtime:removeEventListener("enterFrame", SpinPortal)
+        --physics.stop()
     end
 
 end --function scene:hide( event )
