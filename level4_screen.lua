@@ -103,9 +103,6 @@ local painSoundChannel
 local coinSound = audio.loadSound("Sounds/coin.wav")
 local coinSoundChannel
 
-local bkgMusic = audio.loadStream("Sounds/action.mp3")
-local bkgMusicChannel
-
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
 ----------------------------------------------------------------------------------------- 
