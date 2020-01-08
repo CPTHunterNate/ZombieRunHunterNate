@@ -51,7 +51,8 @@ local zombie2ScrollSpeed = 2
 local zombie1ScrollSpeed = 4
 local zombie3ScrollSpeed = 1
 
-local birdScrollSpeed = 5
+local birdScrollSpeedX = 5
+local birdScrollSpeedY = 5
 
 local portal
 local portalPlatform
@@ -242,11 +243,36 @@ local function MovePortal()
 end
 
 local function MoveBird(event)
-    timer.performWithDelay(7500, MoveBird)
-    bird.x = bird.x - birdScrollSpeed
-    bird.y = bird.y + birdScrollSpeed
 
+    if (bird.x > 0) and (bird.y < display.contentHeight) then
+        bird.x = bird.x - birdScrollSpeedX
+        bird.y = bird.y + birdScrollSpeedY
+    else
+        bird.isVisible = false
+        Runtime:removeEventListener("enterFrame", MoveBird)
+        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
+    end
+    print ("***bird.x = " .. bird.x)
+    print ("***bird.y = " .. bird.y)
 end
+
+function MoveBirdDelay()
+    print("***Called MoveBirdDelay")
+    bird.x = math.random(0, display.contentWidth)
+    bird.y = 0
+    bird.isVisible = true
+    if (bird.x < display.contentWidth/2) then
+        birdScrollSpeedX = -birdScrollSpeedX   
+        bird.xScale = -1
+    elseif (bird.x > display.contentWidth/2)then
+        bird.xScale = 1
+    end
+    print ("***birdScrollSpeedX= " .. birdScrollSpeedX)
+    print ("***birdScrollSpeedY= " .. birdScrollSpeedY)
+    print ("***bird.x = " .. bird.x)
+    Runtime:addEventListener("enterFrame", MoveBird)
+end
+
 
 local function Mute(touch)
     if(touch.phase == "ended") then
@@ -771,11 +797,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", MoveZombies)
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
-
-        timer.performWithDelay(7500, MoveBird)
-
-
-
+        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
     end
 
 end --function scene:show( event )
