@@ -66,7 +66,7 @@ local character
 local heart1
 local heart2
 local heart3
-local numLives = 3
+local numLives = 20
 
 local rArrow 
 local uArrow
@@ -234,7 +234,7 @@ local function MoveZombies()
     zombie3.x = zombie3.x + zombie3ScrollSpeed
     if( zombie3.x > 1024)then
         zombie3ScrollSpeed = -zombie3ScrollSpeed
-    elseif(zombie3.x < 200)then
+    elseif(zombie3.x < 250)then
         zombie3ScrollSpeed = -zombie3ScrollSpeed
     end
 
@@ -266,7 +266,6 @@ function MoveBirdDelay()
     elseif (bird.x > display.contentWidth/2)then
         bird.xScale = -1
     end
-
     Runtime:addEventListener("enterFrame", MoveBird)
 end
 
