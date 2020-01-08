@@ -51,8 +51,8 @@ local zombie2ScrollSpeed = 2
 local zombie1ScrollSpeed = 4
 local zombie3ScrollSpeed = 1
 
-local birdScrollSpeedX = 5
-local birdScrollSpeedY = 5
+local birdScrollSpeedX = 3
+local birdScrollSpeedY = 3
 
 local portal
 local portalPlatform
@@ -65,7 +65,7 @@ local character
 
 local heart1
 local heart2
-local numLives = 2
+local numLives = 3
 
 local rArrow 
 local uArrow
@@ -250,14 +250,11 @@ local function MoveBird(event)
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(5000,10000), MoveBirdDelay)
     end
-    print ("***bird.x = " .. bird.x)
-    print ("***bird.y = " .. bird.y)
 end
 
 function MoveBirdDelay()
-    print("***Called MoveBirdDelay")
     bird.x = math.random(0, display.contentWidth)
     bird.y = 0
     bird.isVisible = true
@@ -265,11 +262,8 @@ function MoveBirdDelay()
         birdScrollSpeedX = -birdScrollSpeedX   
         bird.xScale = -1
     elseif (bird.x > display.contentWidth/2)then
-        bird.xScale = 1
+        bird.xScale = -1
     end
-    print ("***birdScrollSpeedX= " .. birdScrollSpeedX)
-    print ("***birdScrollSpeedY= " .. birdScrollSpeedY)
-    print ("***bird.x = " .. bird.x)
     Runtime:addEventListener("enterFrame", MoveBird)
 end
 
@@ -336,17 +330,26 @@ local function onCollision( self, event )
 
             -- decrease number of lives
             numLives = numLives - 1
+            if(numLives == 2)then
+                -- update hearts
 
-            if (numLives == 1) then
+                heart1.isVisible = true
+                heart2.isVisible = true
+                heart3.isVisible = false
+                timer.performWithDelay(200, ReplaceCharacter) 
+
+            elseif (numLives == 1) then
                 -- update hearts
                 heart1.isVisible = true
                 heart2.isVisible = false
+                heart3.isVisible = false
                 timer.performWithDelay(200, ReplaceCharacter) 
 
             elseif (numLives == 0) then
                 -- update hearts
                 heart1.isVisible = false
                 heart2.isVisible = false
+                heart3.isVisible = false
                 timer.performWithDelay(200, YouLoseTransition)
             end
         end
@@ -423,7 +426,6 @@ local function RemoveCollisionListeners()
 
     bird:removeEventListener( "collision" )
 end
-Runtime:addEventListener("enterFrame", MoveBird)
 
 local function AddPhysicsBodies()
     --add to the physics engine
@@ -634,6 +636,14 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( heart2 )
 
+    heart3 = display.newImageRect("Images/HeartHunter@2x.png", 80, 80)
+    heart3.x = 220
+    heart3.y = 50
+    heart3.isVisible = true
+
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( heart3 )
+
     --Insert the right arrow
     rArrow = display.newImageRect("Images/RightArrowUnpressed@2x.png", 100, 50)
     rArrow.x = display.contentWidth * 9.2 / 10
@@ -717,6 +727,8 @@ function scene:create( event )
     bird.height = 100
     bird.width = 100
     bird.myName = "bird"
+    bird.isVisible = false
+    bird.xScale = -1
 
     sceneGroup:insert( bird )
 
@@ -772,7 +784,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
 
-        numLives = 2
+        numLives = 3
         questionsAnswered = 0
         currentLevel = 2
         bkgMusicChannel = audio.play( bkgMusic, {channel = 1, loops = -1} )
