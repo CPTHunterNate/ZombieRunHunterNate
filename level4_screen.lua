@@ -51,8 +51,8 @@ local zombie2ScrollSpeed = 2
 local zombie1ScrollSpeed = 4
 local zombie3ScrollSpeed = 1
 
-local birdScrollSpeedX = 5
-local birdScrollSpeedY = 5
+local birdScrollSpeedX = 4
+local birdScrollSpeedY = 3
 
 local portal
 local portalPlatform
@@ -246,13 +246,13 @@ end
 
 local function MoveBird(event)
 
-    if (bird.x > 0) and (bird.y < display.contentHeight) then
+    if (bird.x > -100) and (bird.y < 1200) then
         bird.x = bird.x - birdScrollSpeedX
         bird.y = bird.y + birdScrollSpeedY
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(5000,10000), MoveBirdDelay)
     end
 end
 
@@ -264,7 +264,7 @@ function MoveBirdDelay()
         birdScrollSpeedX = -birdScrollSpeedX   
         bird.xScale = -1
     elseif (bird.x > display.contentWidth/2)then
-        bird.xScale = 1
+        bird.xScale = -1
     end
     Runtime:addEventListener("enterFrame", MoveBird)
 end

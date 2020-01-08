@@ -26,6 +26,16 @@ local scene = composer.newScene( sceneName )
 local function MainMenuTransition ()
     composer.gotoScene("main_menu", {effect = "slideRight", time = 500 })
 end
+
+local function NextTransition()
+    if(currentLevel == 1)then
+        composer.gotoScene("level2_screen", {effect = "fade", time = 500})
+    elseif(currentLevel == 2)then
+        composer.gotoScene("level3_screen", {effect = "fade", time = 500})
+    elseif(currentLevel == 3)then
+        composer.gotoScene("level4_screen", {effect = "fade", time = 500})
+    end
+end
 -----------------------------------------------------------------------------------------
 --SOUNDS
 -----------------------------------------------------------------------------------------
@@ -78,6 +88,26 @@ function scene:create( event )
     mainMenuButton.height = 100
 
     sceneGroup:insert(mainMenuButton)
+
+    NextButton = widget.newButton(
+        {
+            --set its position on the screen relative to the screen size
+            x = display.contentWidth*4.5/5,
+            y = display.contentHeight*7.5/8,
+
+            -- Insert the images here
+            defaultFile = "Images/NextSelectButtonHunter@2x.png",
+            overFile = "Images/NextButtonPressedHunter@2x.png",
+
+            -- When the button is released, call the Credits transition function
+            onRelease = NextTransition
+        } )  
+    
+    -- change the size of the button
+    NextButton.width = 200
+    NextButton.height = 100
+
+    sceneGroup:insert(NextButton)
 end -- function scene:create( event )
 
 
