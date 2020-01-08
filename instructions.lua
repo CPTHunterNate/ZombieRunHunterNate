@@ -37,11 +37,11 @@ local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "slideDown", time = 1000})
 end
 
-local function click( touch )
-    if (touch.phase == "began") then
-        audio.play(mouseClick)
-    end
-end
+--local function click( touch )
+    --if (touch.phase == "began") then
+        --audio.play(mouseClick)
+    --end
+--end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -97,7 +97,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- add mouse click sound
-    mouseClick = audio.loadSound("Sounds/patsound.mp3")
+    --local mouseClick = audio.loadSound("Sounds/patsound.mp3")
 
 
     -- Associating Buttons with this scene
@@ -129,7 +129,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
 
-         Runtime:addEventListener("touch", click)
+         --Runtime:addEventListener("touch", click)
     end
 
 end -- function scene:show( event )

@@ -26,11 +26,7 @@ sceneName = "main_menu"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
--- load sound
-audio.loadStream()
 
--- load sound
-audio.loadSound()
 
 -- add background music
 backgroundMusic = audio.loadStream("Sounds/bkgMusic.mp3")
@@ -42,7 +38,6 @@ backgroundMusic = audio.loadStream("Sounds/bkgMusic.mp3")
 local bkg_image
 local playButton
 local creditsButton
-local mouseClick
 
 local bkgMusic
 local bkgMusicChannel
@@ -114,11 +109,7 @@ local function Unmute(touch)
     end
 end
 
-local function click( touch )
-    if (touch.phase == "began") then
-        audio.play(mouseClick)
-    end
-end
+
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -270,7 +261,7 @@ function scene:show( event )
         bkgMusicChannel = audio.play(backgroundMusic, {loops = -1})
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
-        Runtime:addEventListener("touch", click)
+        
 
     end
 
@@ -301,7 +292,7 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         muteButton:removeEventListener("touch", Mute)
         unmuteButton:removeEventListener("touch", Unmute)
-        Runtime:removeEventListener("touch", click)
+        
 
     end
 
