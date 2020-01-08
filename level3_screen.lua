@@ -736,7 +736,7 @@ function scene:create( event )
     sceneGroup:insert( portal )
 
     -- Insert the Hearts
-    heart1 = display.newImageRect("Images/HeartHunter@2x.png", 50, 50)
+    heart1 = display.newImageRect("Images/HeartNate@2x.png", 50, 50)
     heart1.x = 30
     heart1.y = 75
     heart1.isVisible = true
@@ -744,7 +744,7 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( heart1 )
 
-    heart2 = display.newImageRect("Images/HeartHunter@2x.png", 50, 50)
+    heart2 = display.newImageRect("Images/HeartNate@2x.png", 50, 50)
     heart2.x = 70
     heart2.y = 75
     heart2.isVisible = true
@@ -752,7 +752,7 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( heart2 )
 
-    heart3 = display.newImageRect("Images/HeartHunter@2x.png", 50, 50)
+    heart3 = display.newImageRect("Images/HeartNate@2x.png", 50, 50)
     heart3.x = 110
     heart3.y = 75
     heart3.isVisible = true

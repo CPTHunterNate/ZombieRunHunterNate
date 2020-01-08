@@ -22,10 +22,6 @@ sceneName = "instructions_screen"
 -- Creating Scene Object
 scene = composer.newScene( sceneName ) 
 
-
--- load sound
-audio.loadSound()
-
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
