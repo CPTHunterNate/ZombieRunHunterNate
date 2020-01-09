@@ -29,13 +29,13 @@ end
 
 local function RestartTransition ()
     if(currentLevel == 1)then
-        composer.gotoScene("level1_screen", {effect = "fade", time = 500 })
+        composer.gotoScene("level1_screen")
     elseif(currentLevel == 2)then
-        composer.gotoScene("level2_screen", {effect = "fade", time = 500 })
+        composer.gotoScene("level2_screen")
     elseif(currentLevel == 3)then
-        composer.gotoScene("level3_screen", {effect = "fade", time = 500 })
+        composer.gotoScene("level3_screen")
     elseif(currentLevel == 4)then
-        composer.gotoScene("level4_screen", {effect = "fade", time = 500 })
+        composer.gotoScene("level4_screen")
     end
 end
 -----------------------------------------------------------------------------------------

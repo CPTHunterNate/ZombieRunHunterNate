@@ -35,7 +35,6 @@ sceneName = "level1_screen"
 local scene = composer.newScene( sceneName )
 
 
-
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -791,8 +790,6 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         
-
-        --physics.stop()
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
