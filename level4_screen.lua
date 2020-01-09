@@ -255,13 +255,17 @@ end
 
 function MoveBirdDelay()
     bird.x = math.random(0, display.contentWidth)
+    print ("bird.x= " .. bird.x)
+    print ("display.contentWidth/2 = " .. display.contentWidth/2)
     bird.y = 0
     bird.isVisible = true
+    -- set the direction of the bird to face right
     if (bird.x < display.contentWidth/2) then
         birdScrollSpeedX = -birdScrollSpeedX   
         bird.xScale = -1
+    -- set the direction of the bird to face left (original)
     elseif (bird.x > display.contentWidth/2)then
-        bird.xScale = -1
+        bird.xScale = 1
     end
     Runtime:addEventListener("enterFrame", MoveBird)
 end
@@ -373,7 +377,7 @@ local function onCollision( self, event )
             -- show overlay with math question
             composer.showOverlay( "level4_question", { isModal = true, effect = "fade", time = 100})
             Runtime:removeEventListener("enterFrame", MoveBird)
-            
+
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
         end
