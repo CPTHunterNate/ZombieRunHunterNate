@@ -796,6 +796,7 @@ function scene:hide( event )
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
+        physics.stop()
 
         Runtime:removeEventListener("enterFrame", MoveZombie1)
         Runtime:removeEventListener("enterFrame", MoveZombie2)

@@ -900,7 +900,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-
+        physics.start()
         numLives = 3
         questionsAnswered = 0
 
@@ -960,7 +960,7 @@ function scene:hide( event )
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
-        --physics.stop()
+        physics.stop()
         
         Runtime:removeEventListener("enterFrame", MoveZombie1)
         Runtime:removeEventListener("enterFrame", MoveZombie2)
