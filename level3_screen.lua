@@ -891,15 +891,15 @@ function scene:show( event )
 
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
-        -- start physics
-        --physics.start()
+        --start physics
+        physics.start()
 
     elseif ( phase == "did" ) then
 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        physics.start()
+        
         numLives = 3
         questionsAnswered = 0
 
@@ -948,14 +948,14 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         -- Called immediately after scene goes off screen.
-        
+        RemoveCollisionListeners()
+        RemovePhysicsBodies()
 
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        RemoveCollisionListeners()
-        RemovePhysicsBodies()
+        
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
