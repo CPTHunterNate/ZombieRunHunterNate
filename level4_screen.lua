@@ -249,7 +249,7 @@ local function MoveBird(event)
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(5000,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     end
 end
 
@@ -819,7 +819,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", MoveZombies)
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
-        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(5000,15000), MoveBirdDelay)
         
     end
 
