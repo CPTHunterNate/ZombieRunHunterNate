@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
 --
--- you_lose.lua
+-- you_win.lua
 -- Created by: Hunter Connolly
 -- Date: November 6, 2019
--- Description: This is the losing screen of the game.
+-- Description: This is the winning screen of the game.
 -----------------------------------------------------------------------------------------
 
 -- Use Composer Library
@@ -14,7 +14,7 @@ local widget = require( "widget")
 
 
 -- Name the Scene
-sceneName = "you_lose"
+sceneName = "you_win2"
 ------------------------------------------------------------------------------------------
 
 -- create Scene Object
@@ -27,22 +27,11 @@ local function MainMenuTransition ()
     composer.gotoScene("main_menu", {effect = "slideRight", time = 500 })
 end
 
-local function RestartTransition ()
-    if(currentLevel == 1)then
-        composer.gotoScene("level1_screen", {effect = "fade", time = 500 })
-    elseif(currentLevel == 2)then
-        composer.gotoScene("level2_screen", {effect = "fade", time = 500 })
-    elseif(currentLevel == 3)then
-        composer.gotoScene("level3_screen", {effect = "fade", time = 500 })
-    elseif(currentLevel == 4)then
-        composer.gotoScene("level4_screen", {effect = "fade", time = 500 })
-    end
-end
 -----------------------------------------------------------------------------------------
--- SOUNDS
+--SOUNDS
 -----------------------------------------------------------------------------------------
-local youLoseSound = audio.loadSound("Sounds/lose.mp3")
-local youLoseSoundChannel
+local youWinSound = audio.loadSound("Sounds/youWin.mp3")
+local youWinSoundChannel
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -56,7 +45,7 @@ function scene:create( event )
     --BACKGROUND IMAGES
     -----------------------------------------------------------------------------------------
     -- this is the background of the screen
-    bkg_image = display.newImage("Images/YouLoseNate@2x.png")
+    bkg_image = display.newImage("Images/YouWinScreenHunter@2x.png")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -84,30 +73,13 @@ function scene:create( event )
             -- When the button is released, call the Credits transition function
             onRelease = MainMenuTransition
         } )  
+    
     -- change the size of the button
     mainMenuButton.width = 200
     mainMenuButton.height = 100
 
     sceneGroup:insert(mainMenuButton)
 
-    restartButton = widget.newButton(
-        {
-            --set its position on the screen relative to the screen size
-            x = display.contentWidth*4.5/5,
-            y = display.contentHeight*7.5/8,
-
-            -- Insert the images here
-            defaultFile = "Images/RestartButtonUnpressedHunter@2x.png",
-            overFile = "Images/RestartButtonPressedHunter@2x.png",
-
-            -- When the button is released, call the Credits transition function
-            onRelease = RestartTransition
-        } )  
-    -- change the size of the button
-    restartButton.width = 200
-    restartButton.height = 100
-
-    sceneGroup:insert(restartButton)
 end -- function scene:create( event )
 
 
@@ -129,8 +101,7 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        youLoseSoundChannel = audio.play(youLoseSound)
-        
+        youWinSoundChannel = audio.play(youWinSound)
                 
     end
 end --function scene:show( event )
@@ -156,6 +127,8 @@ function scene:hide( event )
 
     -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
+        
+  
 
     end
 
@@ -190,4 +163,5 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
 

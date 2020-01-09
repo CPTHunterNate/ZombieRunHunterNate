@@ -139,7 +139,7 @@ local function stop (event)
 end
 
 local function WinScreenTransition( )
-    composer.gotoScene("you_win")
+    composer.gotoScene("you_win4")
 end
 
 local function PauseTransition( )

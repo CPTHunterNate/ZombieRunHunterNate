@@ -370,8 +370,7 @@ local function onCollision( self, event )
             if (questionsAnswered == 3) then
                 -- after getting 3 questions right, go to the you win screen
                 --check to see if the user has answered 5 questions
-                timer.performWithDelay( 200, Level3Transition )
-                audio.play(sound1)
+                YouWinTransition()
             end
         end        
 
