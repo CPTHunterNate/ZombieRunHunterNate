@@ -102,8 +102,8 @@ local painSoundChannel
 local coinSound = audio.loadSound("Sounds/coin.wav")
 local coinSoundChannel
 
-local bkgMusic = audio.loadStream("Sounds/action.mp3")
-local bkgMusicChannel
+
+
 
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
@@ -272,7 +272,7 @@ local function Mute(touch)
     if(touch.phase == "ended") then
         
         --pause the sound
-        bkgMusicChannel = audio.pause(bkgMusic)
+       
         painSoundChannel = audio.pause(painSound)
         coinSoundChannel = audio.pause(coinSound)
         soundOn = false
@@ -288,7 +288,7 @@ local function Unmute(touch)
     if(touch.phase == "ended") then
         
         --pause the sound
-        bkgMusicChannel = audio.resume(bkgMusic)
+        
         painSoundChannel = audio.resume(painSound)
         coinSoundChannel = audio.resume(coinSound)
         soundOn = true
@@ -787,8 +787,7 @@ function scene:show( event )
         numLives = 3
         questionsAnswered = 0
         currentLevel = 2
-        bkgMusicChannel = audio.play( bkgMusic, {channel = 1, loops = -1} )
-
+        
 
         -- make all Keys visible
         MakeKeysVisible()
@@ -850,7 +849,6 @@ function scene:hide( event )
         Runtime:removeEventListener("enterFrame", MoveBird)
 
 
-        audio.stop(bkgMusicChannel)
     end
 
 end --function scene:hide( event )
