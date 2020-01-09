@@ -141,7 +141,7 @@ local function stop (event)
 end
 
 local function WinScreenTransition( )
-    composer.gotoScene("level3_screen")
+    composer.gotoScene("you_win2")
 end
 
 local function PauseTransition( )
@@ -244,13 +244,13 @@ end
 
 local function MoveBird(event)
 
-    if (bird.x > 0) and (bird.y < display.contentHeight) then
+    if (bird.x > -100) and (bird.y < 1200) then
         bird.x = bird.x - birdScrollSpeedX
         bird.y = bird.y + birdScrollSpeedY
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(5000,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     end
 end
 
@@ -728,7 +728,7 @@ function scene:create( event )
     bird.width = 100
     bird.myName = "bird"
     bird.isVisible = false
-    bird.xScale = -1
+    bird.xScale = 1
 
     sceneGroup:insert( bird )
 
@@ -808,7 +808,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", MoveZombies)
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
-        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(5000,15000), MoveBirdDelay)
     end
 
 end --function scene:show( event )

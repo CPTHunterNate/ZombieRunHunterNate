@@ -181,6 +181,7 @@ local function BubblesSound()
     audio.play(sound5)
 end
 
+
 -- make a function that fades in building GAMES
 local function FadeBubbles(event)
     
@@ -390,7 +391,7 @@ local function YouLoseTransition()
 end
 
 local function YouWinTransition()
-    composer.gotoScene( "level4_screen" )
+    composer.gotoScene("you_win3")
 end
 
 --local function Level4Transition()
