@@ -28,6 +28,7 @@ local function MainMenuTransition ()
 end
 
 local function RestartTransition ()
+    print("currentLevel = ".. currentLevel)
     if(currentLevel == 1)then
         composer.gotoScene("level1_screen")
     elseif(currentLevel == 2)then

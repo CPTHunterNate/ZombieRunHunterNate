@@ -903,6 +903,7 @@ function scene:show( event )
         
         numLives = 3
         questionsAnswered = 0
+        currentLevel = 3
 
         -- make all soccer key visible
         MakeSoccerBallsVisible()
