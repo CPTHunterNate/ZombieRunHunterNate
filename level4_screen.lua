@@ -372,7 +372,8 @@ local function onCollision( self, event )
 
             -- show overlay with math question
             composer.showOverlay( "level4_question", { isModal = true, effect = "fade", time = 100})
-
+            Runtime:removeEventListener("enterFrame", MoveBird)
+            
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
         end
@@ -496,7 +497,7 @@ function ResumeLevel2()
 
     -- make character visible again
     character.isVisible = true
-    
+    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     if (questionsAnswered > 0) then
         if (theBall ~= nil) and (theBall.isBodyActive == true) then
             physics.removeBody(theBall)
