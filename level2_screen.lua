@@ -145,6 +145,7 @@ local function WinScreenTransition( )
 end
 
 local function PauseTransition( )
+    Runtime:removeEventListener("enterFrame", MoveBird)
     composer.showOverlay("pause")
     character.isVisible = false
 end
@@ -257,28 +258,23 @@ end
 
 function MoveBirdDelay()
     bird.x = math.random(0, display.contentWidth)
-    
+    print("***bird.x = ".. bird.x)
+
     bird.y = 0
     bird.isVisible = true
     -- set the direction of the bird to face right
     if (bird.x < display.contentWidth/2) then
         birdScrollSpeedX = -birdScrollSpeedX
         bird.xScale = -1
-        if(bird.x == -1)then
-            bird.x = 1
-        elseif(bird.x == 1)then
-            bird.x = -1
-        end
     -- set the direction of the bird to face left (original)
     elseif (bird.x > display.contentWidth/2)then
+        birdScrollSpeedX = 3
         bird.xScale = 1
-        if(bird.x == -1)then
-            bird.x = -1
-        elseif(bird.x == 1)then
-            bird.x = 1
-        end
     end
+    print ("***birdScrollSpeedX = " .. birdScrollSpeedX)
+    print ("***bird.xScale = " .. bird.xScale)
     Runtime:addEventListener("enterFrame", MoveBird)
+    print ("***addedEventListener MoveBird")
 end
 
 
