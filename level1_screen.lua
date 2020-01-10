@@ -23,7 +23,6 @@ local widget = require( "widget" )
 
 -- load physics
 local physics = require("physics")
-physics.start()
 
 -----------------------------------------------------------------------------------------
 
@@ -732,7 +731,7 @@ function scene:show( event )
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
         -- start physics
-        
+        physics.start()
 
 
     elseif ( phase == "did" ) then
