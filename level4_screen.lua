@@ -846,13 +846,13 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         RemoveCollisionListeners()
-        RemovePhysicsBodies()
+        
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         
-
+        RemovePhysicsBodies()
         physics.stop()
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
