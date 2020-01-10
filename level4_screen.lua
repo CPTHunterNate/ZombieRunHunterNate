@@ -66,7 +66,7 @@ local character
 local heart1
 local heart2
 local heart3
-local numLives = 20
+local numLives = 3
 
 local rArrow 
 local uArrow
@@ -255,8 +255,7 @@ end
 
 function MoveBirdDelay()
     bird.x = math.random(0, display.contentWidth)
-    print ("bird.x= " .. bird.x)
-    print ("display.contentWidth/2 = " .. display.contentWidth/2)
+    
     bird.y = 0
     bird.isVisible = true
     -- set the direction of the bird to face right

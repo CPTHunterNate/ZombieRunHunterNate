@@ -51,8 +51,12 @@ local function BackToLevel()
 end 
 
 local function Level2Transition( )
-    if(currentLevel == 2)then
+    if(currentLevel == 1)then
+        composer.gotoScene("level1_screen")
+    elseif(currentLevel == 2)then
         composer.gotoScene("level2_screen")
+    elseif(currentLevel == 3)then
+        composer.gotoScene("level3_screen")
     elseif(currentLevel == 4)then
         composer.gotoScene("level4_screen")
     end

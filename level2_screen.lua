@@ -256,13 +256,16 @@ end
 
 function MoveBirdDelay()
     bird.x = math.random(0, display.contentWidth)
+    
     bird.y = 0
     bird.isVisible = true
+    -- set the direction of the bird to face right
     if (bird.x < display.contentWidth/2) then
         birdScrollSpeedX = -birdScrollSpeedX   
         bird.xScale = -1
+    -- set the direction of the bird to face left (original)
     elseif (bird.x > display.contentWidth/2)then
-        bird.xScale = -1
+        bird.xScale = 1
     end
     Runtime:addEventListener("enterFrame", MoveBird)
 end
@@ -493,7 +496,7 @@ function ResumeLevel2()
 
     -- make character visible again
     character.isVisible = true
-    
+    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     if (questionsAnswered > 0) then
         if (theBall ~= nil) and (theBall.isBodyActive == true) then
             physics.removeBody(theBall)
