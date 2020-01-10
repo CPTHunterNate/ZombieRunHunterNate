@@ -89,8 +89,8 @@ local motionx = 0
 local _SPEED = -9
 local SPEED = 9
 
-local LINEAR_VELOCITY = -250
-local GRAVITY = 10
+local LINEAR_VELOCITY = -300
+local GRAVITY = 30
 
 local leftW 
 local rightW 
@@ -352,8 +352,8 @@ local function ReplaceCharacter()
     character = display.newImageRect("Images/Character1@2x.png", 60, 120)
     character.x = display.contentWidth * 7.4 / 8
     character.y = display.contentHeight  * 0.2/ 3
-    character.width = 80
-    character.height = 120
+    character.width = 65
+    character.height = 105
     character.myName = "Bob"
 
     -- intialize horizontal movement of character
