@@ -58,7 +58,11 @@ end
 
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "fade", time = 2000})
+    if(currentLevel == 1) then
+        composer.gotoScene("level1_screen")
+    elseif (currentLevel == 3) then
+        composer.gotoScene("level3_screen")
+    end
 end    
 
 --------------------------------------------------------------------------------------
