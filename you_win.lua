@@ -28,13 +28,11 @@ local function MainMenuTransition ()
 end
 
 local function NextTransition()
-    if(currentLevel == 1)then
-        composer.gotoScene("level2_screen", {effect = "fade", time = 500})
-    elseif(currentLevel == 2)then
-        composer.gotoScene("level3_screen", {effect = "fade", time = 500})
-    elseif(currentLevel == 3)then
-        composer.gotoScene("level4_screen", {effect = "fade", time = 500})
-    end
+    composer.gotoScene("level2_screen", {effect = "fade", time = 500 })
+end
+
+local function LevelSelectTransition ()
+    composer.gotoScene("level_select", {effect = "slideRight", time = 500 })
 end
 -----------------------------------------------------------------------------------------
 --SOUNDS
@@ -108,6 +106,26 @@ function scene:create( event )
     NextButton.height = 100
 
     sceneGroup:insert(NextButton)
+
+    levelSelectButton = widget.newButton(
+        {
+            --set its position on the screen relative to the screen size
+            x = display.contentWidth/2,
+            y = display.contentHeight*7.5/8,
+
+            -- Insert the images here
+            defaultFile = "Images/LevelSelectButtonHunter@2x.png",
+            overFile = "Images/LevelSelectButtonPressedHunter@2x.png",
+
+            -- When the button is released, call the Credits transition function
+            onRelease = LevelSelectTransition
+        } )  
+    
+    -- change the size of the button
+    levelSelectButton.width = 200
+    levelSelectButton.height = 100
+
+    sceneGroup:insert(levelSelectButton)
 end -- function scene:create( event )
 
 

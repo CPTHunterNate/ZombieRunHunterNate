@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
 --
--- you_lose.lua
+-- you_win.lua
 -- Created by: Hunter Connolly
 -- Date: November 6, 2019
--- Description: This is the losing screen of the game.
+-- Description: This is the winning screen of the game.
 -----------------------------------------------------------------------------------------
 
 -- Use Composer Library
@@ -14,7 +14,7 @@ local widget = require( "widget")
 
 
 -- Name the Scene
-sceneName = "you_lose"
+sceneName = "you_win2"
 ------------------------------------------------------------------------------------------
 
 -- create Scene Object
@@ -27,23 +27,18 @@ local function MainMenuTransition ()
     composer.gotoScene("main_menu", {effect = "slideRight", time = 500 })
 end
 
-local function RestartTransition ()
-    print("currentLevel = ".. currentLevel)
-    if(currentLevel == 1)then
-        composer.gotoScene("level1_screen")
-    elseif(currentLevel == 2)then
-        composer.gotoScene("level2_screen")
-    elseif(currentLevel == 3)then
-        composer.gotoScene("level3_screen")
-    elseif(currentLevel == 4)then
-        composer.gotoScene("level4_screen")
-    end
+local function NextTransition()
+    composer.gotoScene("level3_screen", {effect = "fade", time = 500})
+end
+
+local function LevelSelectTransition ()
+    composer.gotoScene("level_select", {effect = "slideRight", time = 500 })
 end
 -----------------------------------------------------------------------------------------
--- SOUNDS
+--SOUNDS
 -----------------------------------------------------------------------------------------
-local youLoseSound = audio.loadSound("Sounds/lose.mp3")
-local youLoseSoundChannel
+local youWinSound = audio.loadSound("Sounds/youWin.mp3")
+local youWinSoundChannel
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -57,7 +52,7 @@ function scene:create( event )
     --BACKGROUND IMAGES
     -----------------------------------------------------------------------------------------
     -- this is the background of the screen
-    bkg_image = display.newImage("Images/YouLoseNate@2x.png")
+    bkg_image = display.newImage("Images/YouWinScreenHunter@2x.png")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -85,30 +80,52 @@ function scene:create( event )
             -- When the button is released, call the Credits transition function
             onRelease = MainMenuTransition
         } )  
+    
     -- change the size of the button
     mainMenuButton.width = 200
     mainMenuButton.height = 100
 
     sceneGroup:insert(mainMenuButton)
 
-    restartButton = widget.newButton(
+    NextButton = widget.newButton(
         {
             --set its position on the screen relative to the screen size
             x = display.contentWidth*4.5/5,
             y = display.contentHeight*7.5/8,
 
             -- Insert the images here
-            defaultFile = "Images/RestartButtonUnpressedHunter@2x.png",
-            overFile = "Images/RestartButtonPressedHunter@2x.png",
+            defaultFile = "Images/NextSelectButtonHunter@2x.png",
+            overFile = "Images/NextButtonPressedHunter@2x.png",
 
             -- When the button is released, call the Credits transition function
-            onRelease = RestartTransition
+            onRelease = NextTransition
         } )  
+    
     -- change the size of the button
-    restartButton.width = 200
-    restartButton.height = 100
+    NextButton.width = 200
+    NextButton.height = 100
 
-    sceneGroup:insert(restartButton)
+    sceneGroup:insert(NextButton)
+
+    levelSelectButton = widget.newButton(
+        {
+            --set its position on the screen relative to the screen size
+            x = display.contentWidth/2,
+            y = display.contentHeight*7.5/8,
+
+            -- Insert the images here
+            defaultFile = "Images/LevelSelectButtonHunter@2x.png",
+            overFile = "Images/LevelSelectButtonPressedHunter@2x.png",
+
+            -- When the button is released, call the Credits transition function
+            onRelease = LevelSelectTransition
+        } )  
+    
+    -- change the size of the button
+    levelSelectButton.width = 200
+    levelSelectButton.height = 100
+
+    sceneGroup:insert(levelSelectButton)
 end -- function scene:create( event )
 
 
@@ -130,8 +147,7 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        youLoseSoundChannel = audio.play(youLoseSound)
-        
+        youWinSoundChannel = audio.play(youWinSound)
                 
     end
 end --function scene:show( event )
@@ -157,6 +173,8 @@ function scene:hide( event )
 
     -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
+        
+  
 
     end
 
@@ -191,4 +209,5 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
 

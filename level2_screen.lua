@@ -102,8 +102,8 @@ local painSoundChannel
 local coinSound = audio.loadSound("Sounds/coin.wav")
 local coinSoundChannel
 
-local bkgMusic = audio.loadStream("Sounds/action.mp3")
-local bkgMusicChannel
+
+
 
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
@@ -141,7 +141,7 @@ local function stop (event)
 end
 
 local function WinScreenTransition( )
-    composer.gotoScene("level3_screen")
+    composer.gotoScene("you_win2")
 end
 
 local function PauseTransition( )
@@ -244,13 +244,13 @@ end
 
 local function MoveBird(event)
 
-    if (bird.x > 0) and (bird.y < display.contentHeight) then
+    if (bird.x > -100) and (bird.y < 1200) then
         bird.x = bird.x - birdScrollSpeedX
         bird.y = bird.y + birdScrollSpeedY
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(5000,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     end
 end
 
@@ -272,7 +272,7 @@ local function Mute(touch)
     if(touch.phase == "ended") then
         
         --pause the sound
-        bkgMusicChannel = audio.pause(bkgMusic)
+       
         painSoundChannel = audio.pause(painSound)
         coinSoundChannel = audio.pause(coinSound)
         soundOn = false
@@ -288,7 +288,7 @@ local function Unmute(touch)
     if(touch.phase == "ended") then
         
         --pause the sound
-        bkgMusicChannel = audio.resume(bkgMusic)
+        
         painSoundChannel = audio.resume(painSound)
         coinSoundChannel = audio.resume(coinSound)
         soundOn = true
@@ -728,7 +728,7 @@ function scene:create( event )
     bird.width = 100
     bird.myName = "bird"
     bird.isVisible = false
-    bird.xScale = -1
+    bird.xScale = 1
 
     sceneGroup:insert( bird )
 
@@ -787,8 +787,7 @@ function scene:show( event )
         numLives = 3
         questionsAnswered = 0
         currentLevel = 2
-        bkgMusicChannel = audio.play( bkgMusic, {channel = 1, loops = -1} )
-
+        
 
         -- make all Keys visible
         MakeKeysVisible()
@@ -809,7 +808,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", MoveZombies)
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
-        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(5000,15000), MoveBirdDelay)
     end
 
 end --function scene:show( event )
@@ -829,13 +828,13 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
+        RemoveCollisionListeners()
+        RemovePhysicsBodies()
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveCollisionListeners()
-        RemovePhysicsBodies()
+
 
         physics.stop()
         RemoveArrowEventListeners()
@@ -850,7 +849,6 @@ function scene:hide( event )
         Runtime:removeEventListener("enterFrame", MoveBird)
 
 
-        audio.stop(bkgMusicChannel)
     end
 
 end --function scene:hide( event )

@@ -139,7 +139,7 @@ local function stop (event)
 end
 
 local function WinScreenTransition( )
-    composer.gotoScene("you_win")
+    composer.gotoScene("you_win4")
 end
 
 local function PauseTransition( )
@@ -249,19 +249,23 @@ local function MoveBird(event)
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(5000,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     end
 end
 
 function MoveBirdDelay()
     bird.x = math.random(0, display.contentWidth)
+    print ("bird.x= " .. bird.x)
+    print ("display.contentWidth/2 = " .. display.contentWidth/2)
     bird.y = 0
     bird.isVisible = true
+    -- set the direction of the bird to face right
     if (bird.x < display.contentWidth/2) then
         birdScrollSpeedX = -birdScrollSpeedX   
         bird.xScale = -1
+    -- set the direction of the bird to face left (original)
     elseif (bird.x > display.contentWidth/2)then
-        bird.xScale = -1
+        bird.xScale = 1
     end
     Runtime:addEventListener("enterFrame", MoveBird)
 end
@@ -272,7 +276,7 @@ local function Mute(touch)
     if(touch.phase == "ended") then
         
         --pause the sound
-        bkgMusicChannel = audio.pause(bkgMusic)
+       
         painSoundChannel = audio.pause(painSound)
         coinSoundChannel = audio.pause(coinSound)
         soundOn = false
@@ -288,7 +292,7 @@ local function Unmute(touch)
     if(touch.phase == "ended") then
         
         --pause the sound
-        bkgMusicChannel = audio.resume(bkgMusic)
+        
         painSoundChannel = audio.resume(painSound)
         coinSoundChannel = audio.resume(coinSound)
         soundOn = true
@@ -372,6 +376,7 @@ local function onCollision( self, event )
 
             -- show overlay with math question
             composer.showOverlay( "level4_question", { isModal = true, effect = "fade", time = 100})
+            Runtime:removeEventListener("enterFrame", MoveBird)
 
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
@@ -496,7 +501,7 @@ function ResumeLevel2()
 
     -- make character visible again
     character.isVisible = true
-    
+    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     if (questionsAnswered > 0) then
         if (theBall ~= nil) and (theBall.isBodyActive == true) then
             physics.removeBody(theBall)
@@ -797,7 +802,7 @@ function scene:show( event )
         numLives = 3
         questionsAnswered = 0
         currentLevel = 4
-        bkgMusicChannel = audio.play( bkgMusic, {channel = 1, loops = -1} )
+       
 
 
         -- make all Keys visible
@@ -819,7 +824,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", MoveZombies)
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
-        timer.performWithDelay(math.random(0,10000), MoveBirdDelay)
+        timer.performWithDelay(math.random(5000,15000), MoveBirdDelay)
         
     end
 
@@ -840,13 +845,13 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
+        RemoveCollisionListeners()
+        RemovePhysicsBodies()
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveCollisionListeners()
-        RemovePhysicsBodies()
+        
 
         physics.stop()
         RemoveArrowEventListeners()
@@ -861,7 +866,6 @@ function scene:hide( event )
         Runtime:removeEventListener("enterFrame", MoveBird)
 
 
-        audio.stop(bkgMusicChannel)
     end
 
 end --function scene:hide( event )

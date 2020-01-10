@@ -181,6 +181,7 @@ local function BubblesSound()
     audio.play(sound5)
 end
 
+
 -- make a function that fades in building GAMES
 local function FadeBubbles(event)
     
@@ -390,7 +391,7 @@ local function YouLoseTransition()
 end
 
 local function YouWinTransition()
-    composer.gotoScene( "level4_screen" )
+    composer.gotoScene("you_win3")
 end
 
 --local function Level4Transition()
@@ -891,17 +892,18 @@ function scene:show( event )
 
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
-        -- start physics
-        --physics.start()
+        --start physics
+        physics.start()
 
     elseif ( phase == "did" ) then
 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-
+        
         numLives = 3
         questionsAnswered = 0
+        currentLevel = 3
 
         -- make all soccer key visible
         MakeSoccerBallsVisible()
@@ -948,18 +950,20 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         -- Called immediately after scene goes off screen.
-        
+        RemoveCollisionListeners()
+        RemovePhysicsBodies()
 
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        RemoveCollisionListeners()
-        RemovePhysicsBodies()
+        
+        
+        physics.stop()
+
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
-        --physics.stop()
         
         Runtime:removeEventListener("enterFrame", MoveZombie1)
         Runtime:removeEventListener("enterFrame", MoveZombie2)
