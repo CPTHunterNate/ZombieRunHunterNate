@@ -262,11 +262,21 @@ function MoveBirdDelay()
     bird.isVisible = true
     -- set the direction of the bird to face right
     if (bird.x < display.contentWidth/2) then
-        birdScrollSpeedX = -birdScrollSpeedX   
+        birdScrollSpeedX = -birdScrollSpeedX
         bird.xScale = -1
+        if(bird.x == -1)then
+            bird.x = 1
+        elseif(bird.x == 1)then
+            bird.x = -1
+        end
     -- set the direction of the bird to face left (original)
     elseif (bird.x > display.contentWidth/2)then
         bird.xScale = 1
+        if(bird.x == -1)then
+            bird.x = -1
+        elseif(bird.x == 1)then
+            bird.x = 1
+        end
     end
     Runtime:addEventListener("enterFrame", MoveBird)
 end

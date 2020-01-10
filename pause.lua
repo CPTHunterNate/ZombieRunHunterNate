@@ -44,7 +44,7 @@ local function MainMenuTransition( )
     composer.gotoScene("main_menu", {effect = "slideRight", time = 500 })
 end
 
-local function BackToLevel() 
+local function BackToLevel2() 
     composer.hideOverlay("crossFade", 400 )
   
     ResumeLevel2()
