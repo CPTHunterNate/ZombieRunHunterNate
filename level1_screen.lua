@@ -495,6 +495,15 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
+
+    -- Insert the background image
+    bkg_image = display.newImageRect("Images/Level1ScreenNate@2x.png", display.contentWidth, display.contentHeight)
+    bkg_image.x = display.contentWidth / 2 
+    bkg_image.y = display.contentHeight / 2
+
+    -- Insert background image into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( bkg_image )
+
      -- Creating Play Button
     pauseButton = widget.newButton( 
         {   
@@ -516,16 +525,6 @@ function scene:create( event )
         } )
 
     sceneGroup:insert( pauseButton )
-
-    -- Insert the background image
-    bkg_image = display.newImageRect("Images/Level1ScreenNate@2x.png", display.contentWidth, display.contentHeight)
-    bkg_image.x = display.contentWidth / 2 
-    bkg_image.y = display.contentHeight / 2
-
-    -- Insert background image into the scene group in order to ONLY be associated with this scene
-    sceneGroup:insert( bkg_image )
-    -- Send the background image to the back layer so all other objects can be on top
-    bkg_image:toBack()    
     
     -- Insert the platforms
     platform1 = display.newImageRect("Images//Level1PlatformHunter.png", 200, 50)
