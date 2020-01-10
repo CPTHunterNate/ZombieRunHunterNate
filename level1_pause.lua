@@ -29,6 +29,7 @@ local scene = composer.newScene( sceneName )
 local bkg
 local backButton
 local cover
+local currentLevel
 
 
 

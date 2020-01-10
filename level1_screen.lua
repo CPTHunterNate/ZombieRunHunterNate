@@ -378,7 +378,7 @@ end
 
 -- create a pause screen transition
 local function PauseScreenTransition()
-    composer.showOverlay( "level1_pause", { isModal = true, effect = "fade", time = 100})
+    composer.showOverlay( "pause", { isModal = true, effect = "fade", time = 100})
 end   
 
 
@@ -480,6 +480,20 @@ function ResumeGame()
         if (theKey ~= nil) and (theKey.isBodyActive == true) then
             physics.removeBody(theKey)
             theKey.isVisible = false
+        end
+    end
+
+end
+
+function ResumeLevel2()
+
+    -- make character visible again
+    character.isVisible = true
+    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
+    if (questionsAnswered > 0) then
+        if (theBall ~= nil) and (theBall.isBodyActive == true) then
+            physics.removeBody(theBall)
+            theBall.isVisible = false
         end
     end
 
