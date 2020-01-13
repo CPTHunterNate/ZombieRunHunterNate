@@ -173,7 +173,7 @@ end
 
 local function DisplayQuestion()
     --creating random numbers
-    questionSelection = math.random (1,4)
+    questionSelection = math.random (1,9)
 
     if(questionSelection == 1) then
 
@@ -226,55 +226,55 @@ local function DisplayQuestion()
     elseif(questionSelection == 5)then
 
         --create the question
-        questionText.text = "What Planet is Farthest\nfrom the Sun?"
+        questionText.text = "Photosynthesis is how plants\nmake their own _______________?"
 
         -- create the answer 
-        answerText.text = "Neptune"
+        answerText.text = "Food"
 
-        wrongText1.text = "Uranus"
-        wrongText2.text = "Mars"
-        wrongText3.text = "Venus"
+        wrongText1.text = "Water"
+        wrongText2.text = "Roots"
+        wrongText3.text = "Seeds"
     elseif(questionSelection == 6) then
 
         --create the question
-        questionText.text = "The Sun is"
+        questionText.text = "An average size tree can provide\nenough wood to make how\nmany pencils?"
 
         -- create the answer
-        answerText.text ="a Star"
+        answerText.text ="170,000"
 
         -- create the wrong answer
-        wrongText1.text = "a Planet"
-        wrongText2.text = "a Comet"
-        wrongText3.text = "an Asteroid"
+        wrongText1.text = "30,000"
+        wrongText2.text = "250,000"
+        wrongText3.text = "150,000"
     elseif(questionSelection == 7)then
 
         --create the question
-        questionText.text = "Which of these is not a Planet?"
+        questionText.text = "What pecent of plant life is found\nin the ocean?"
 
-        answerText.text = "Pluto"
+        answerText.text = "85%"
 
-        wrongText1.text = "Venus"
-        wrongText2.text = "Mars"
-        wrongText3.text = "Jupiter"
+        wrongText1.text = "25%"
+        wrongText2.text = "43%"
+        wrongText3.text = "10%"
     elseif(questionSelection == 8)then
 
         --create the question
-        questionText.text = "What Planet is known as the \nred planet?"
+        questionText.text = "What is the total number of plant\nspecies identified?"
 
-        answerText.text = "Mars"
+        answerText.text = "Over 300,000"
 
-        wrongText1.text = "Venus"
-        wrongText2.text = "Uranus"
-        wrongText3.text = "Saturn"
+        wrongText1.text = "100,000"
+        wrongText2.text = "250,000"
+        wrongText3.text = "200,000"
     elseif(questionSelection == 9)then
         --create the question
-        questionText.text = "What Planet has a ring\naround it?"
+        questionText.text = "What is 1 thing a plant needs to\nsurvive?"
 
-        answerText.text = "Saturn"
+        answerText.text = "Air"
 
-        wrongText1.text = "Mercury"
-        wrongText2.text = "Uranus"
-        wrongText3.text = "Earth"
+        wrongText1.text = "MoonLight"
+        wrongText2.text = "Wood"
+        wrongText3.text = "Candy"
     elseif(questionSelection == 10)then
         --create the question
         questionText.text = "What is the Hottest planet?"

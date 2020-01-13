@@ -253,8 +253,26 @@ local function MoveBird(event)
     end
 end
 
+function MoveBirdDelay()
+    bird.x = math.random(0, display.contentWidth)
+    print("***bird.x = ".. bird.x)
 
-
+    bird.y = 0
+    bird.isVisible = true
+    -- set the direction of the bird to face right
+    if (bird.x < display.contentWidth/2) then
+        birdScrollSpeedX = -birdScrollSpeedX
+        bird.xScale = -1
+    -- set the direction of the bird to face left (original)
+    elseif (bird.x > display.contentWidth/2)then
+        birdScrollSpeedX = 3
+        bird.xScale = 1
+    end
+    print ("***birdScrollSpeedX = " .. birdScrollSpeedX)
+    print ("***bird.xScale = " .. bird.xScale)
+    Runtime:addEventListener("enterFrame", MoveBird)
+    print ("***addedEventListener MoveBird")
+end
 
 
 local function Mute(touch)
@@ -481,7 +499,19 @@ end
 -----------------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+function ResumeLevel2()
 
+    -- make character visible again
+    character.isVisible = true
+    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
+    if (questionsAnswered > 0) then
+        if (theBall ~= nil) and (theBall.isBodyActive == true) then
+            physics.removeBody(theBall)
+            theBall.isVisible = false
+        end
+    end
+
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -836,6 +866,7 @@ function scene:hide( event )
         Runtime:removeEventListener("enterFrame", MoveZombies)
 
         Runtime:removeEventListener("enterFrame", MoveBird)
+        Runtime:removeEventListener("enterFrame", MoveBirdDelay)
 
 
     end

@@ -857,7 +857,7 @@ function scene:hide( event )
         Runtime:removeEventListener("enterFrame", MoveZombies)
 
         Runtime:removeEventListener("enterFrame", MoveBird)
-
+        Runtime:removeEventListener("enterFrame", MoveBirdDelay)
 
     end
 
