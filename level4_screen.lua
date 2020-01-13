@@ -472,7 +472,6 @@ function ResumeLevel4()
 
     -- make character visible again
     character.isVisible = true
-    timer.performWithDelay(math.random(7500,15000), MoveBirdDelayL4)
     bird.collision = onCollision
     bird:addEventListener( "collision" )
     if (questionsAnswered > 0) then

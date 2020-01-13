@@ -249,7 +249,7 @@ local function DisplayQuestion()
     elseif(questionSelection == 7)then
 
         --create the question
-        questionText.text = "What pecent of plant life is found\nin the ocean?"
+        questionText.text = "What percent of plant life is\nfound in the ocean?"
 
         answerText.text = "85%"
 
@@ -268,7 +268,7 @@ local function DisplayQuestion()
         wrongText3.text = "200,000"
     elseif(questionSelection == 9)then
         --create the question
-        questionText.text = "What is 1 thing a plant needs to\nsurvive?"
+        questionText.text = "What is 1 thing a plant needs\nto survive?"
 
         answerText.text = "Air"
 
