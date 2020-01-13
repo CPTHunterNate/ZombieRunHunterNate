@@ -241,19 +241,19 @@ local function MovePortal()
     portal:rotate(10)
 end
 
-local function MoveBird(event)
+local function MoveBirdL4(event)
 
     if (bird.x > -100) and (bird.y < 1200) then
         bird.x = bird.x - birdScrollSpeedX
         bird.y = bird.y + birdScrollSpeedY
     else
         bird.isVisible = false
-        Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
+        Runtime:removeEventListener("enterFrame", MoveBirdL4)
+        timer.performWithDelay(math.random(7500,15000), MoveBirdDelayL4)
     end
 end
 
-function MoveBirdDelay()
+function MoveBirdDelayL4()
     bird.x = math.random(0, display.contentWidth)
 
     bird.y = 0
@@ -267,7 +267,7 @@ function MoveBirdDelay()
         birdScrollSpeedX = 3
         bird.xScale = 1
     end
-    Runtime:addEventListener("enterFrame", MoveBird)
+    Runtime:addEventListener("enterFrame", MoveBirdL4)
 end
 
 
@@ -346,8 +346,8 @@ local function onCollision( self, event )
 
             -- show overlay with math question
             composer.showOverlay( "level4_question", { isModal = true, effect = "fade", time = 100})
-            Runtime:removeEventListener("enterFrame", MoveBird)
-            Runtime:removeEventListener("enterFrame", MoveBirdDelay)
+            Runtime:removeEventListener("enterFrame", MoveBirdL4)
+            Runtime:removeEventListener("enterFrame", MoveBirdDelayL4)
             bird:removeEventListener( "collision" )
 
             -- Increment questions answered
@@ -468,11 +468,11 @@ end
 -----------------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
-function ResumeLevel2()
+function ResumeLevel4()
 
     -- make character visible again
     character.isVisible = true
-    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
+    timer.performWithDelay(math.random(7500,15000), MoveBirdDelayL4)
     bird.collision = onCollision
     bird:addEventListener( "collision" )
     if (questionsAnswered > 0) then

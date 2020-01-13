@@ -83,6 +83,7 @@ local function Music( )
     --bkgMusicChannel = audio.play (bkgMusic, {channel = 1, loops=-1} )
 end 
 
+
 local function Mute(touch)
     if (touch.phase == "ended") then
         -- pause the sound

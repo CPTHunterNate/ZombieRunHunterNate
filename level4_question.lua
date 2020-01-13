@@ -72,7 +72,7 @@ local incorrectSoundChannel
 local function BackToLevel2() 
     composer.hideOverlay("crossFade", 400 )
     
-    ResumeLevel2()
+    ResumeLevel4()
 end 
 
 
