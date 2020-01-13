@@ -14,7 +14,7 @@ local widget = require( "widget")
 
 
 -- Name the Scene
-sceneName = "you_win2"
+sceneName = "you_win3"
 ------------------------------------------------------------------------------------------
 
 -- create Scene Object
