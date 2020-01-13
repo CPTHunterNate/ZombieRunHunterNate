@@ -261,7 +261,7 @@ local function DisplayQuestion()
         --create the question
         questionText.text = "What is the total number of plant\nspecies identified?"
 
-        answerText.text = "Over 300,000"
+        answerText.text = "300,000+"
 
         wrongText1.text = "100,000"
         wrongText2.text = "250,000"
@@ -275,66 +275,6 @@ local function DisplayQuestion()
         wrongText1.text = "MoonLight"
         wrongText2.text = "Wood"
         wrongText3.text = "Candy"
-    elseif(questionSelection == 10)then
-        --create the question
-        questionText.text = "What is the Hottest planet?"
-
-        answerText.text = "Venus"
-
-        wrongText1.text = "Jupiter"
-        wrongText2.text = "Mars"
-        wrongText3.text = "Saturn"
-    elseif(questionSelection == 11)then
-        --create the question
-        questionText.text = "What Planet has the \nmost Moons?"
-
-        answerText.text = "Jupiter"
-
-        wrongText1.text = "Neptune"
-        wrongText2.text = "Uranus"
-        wrongText3.text = "Earth"
-    elseif(questionSelection == 12)then
-        --create the question
-        questionText.text = "What is the coldest Planet?"
-
-        answerText.text = "Neptune"
-
-        wrongText1.text = "Mars"
-        wrongText2.text = "Earth"
-        wrongText3.text = "Uranus"
-    elseif(questionSelection == 13)then
-        --create the question
-        questionText.text = "What do we use to see Planets\nfrom the ground?"
-
-        answerText.text = "a Telescope"
-
-        wrongText1.text = "a Microscope"
-        wrongText2.text = "a Horoscope"
-        wrongText3.text = "a Skyoscope"
-    elseif(questionSelection == 14)then
-        questionText.text = "What Planet has no Moons?"
-
-        answerText.text = "Venus"
-
-        wrongText1.text = "Mars"
-        wrongText2.text = "Saturn"
-        wrongText3.text = "Jupiter"
-    elseif(questionSelection == 15)then
-        questionText.text = "What is the Oldest Planet?"
-
-        answerText.text = "Jupiter"
-
-        wrongText1.text = "Venus"
-        wrongText2.text = "Neptune"
-        wrongText3.text = "Uranus"
-    elseif(questionSelection == 16)then
-        questionText.text = "What is the second smallest\n planet in the solar system?"
-
-        answerText.text = "Mars"
-
-        wrongText1.text = "Pluto"
-        wrongText2.text = "Mercury"
-        wrongText3.text = "Uranus"
     end
 end
 

@@ -51,7 +51,7 @@ local zombie2ScrollSpeed = 2
 local zombie1ScrollSpeed = 4
 local zombie3ScrollSpeed = 1
 
-local birdScrollSpeedX = 4
+local birdScrollSpeedX = 5
 local birdScrollSpeedY = 3
 
 local portal
@@ -776,7 +776,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", MovePortal)
         Runtime:addEventListener("enterFrame", MoveZombies)
         
-        timer.performWithDelay(math.random(5000,15000), MoveBirdDelay)
+        timer.performWithDelay(math.random(5000,15000), MoveBirdDelayL4)
         
     end
 
@@ -814,8 +814,8 @@ function scene:hide( event )
         Runtime:removeEventListener("enterFrame", MovePortal)
         Runtime:removeEventListener("enterFrame", MoveZombies)
 
-        Runtime:removeEventListener("enterFrame", MoveBird)
-        Runtime:removeEventListener("enterFrame", MoveBirdDelay)
+        Runtime:removeEventListener("enterFrame", MoveBirdL4)
+        Runtime:removeEventListener("enterFrame", MoveBirdDelayL4)
 
 
     end
