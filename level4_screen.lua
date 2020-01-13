@@ -255,7 +255,6 @@ end
 
 function MoveBirdDelay()
     bird.x = math.random(0, display.contentWidth)
-    print("***bird.x = ".. bird.x)
 
     bird.y = 0
     bird.isVisible = true
@@ -268,10 +267,7 @@ function MoveBirdDelay()
         birdScrollSpeedX = 3
         bird.xScale = 1
     end
-    print ("***birdScrollSpeedX = " .. birdScrollSpeedX)
-    print ("***bird.xScale = " .. bird.xScale)
     Runtime:addEventListener("enterFrame", MoveBird)
-    print ("***addedEventListener MoveBird")
 end
 
 
@@ -380,6 +376,8 @@ local function onCollision( self, event )
             -- show overlay with math question
             composer.showOverlay( "level4_question", { isModal = true, effect = "fade", time = 100})
             Runtime:removeEventListener("enterFrame", MoveBird)
+            Runtime:removeEventListener("enterFrame", MoveBirdDelay)
+            bird:removeEventListener( "collision" )
 
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
@@ -504,6 +502,8 @@ function ResumeLevel2()
     -- make character visible again
     character.isVisible = true
     timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
+    bird.collision = onCollision
+    bird:addEventListener( "collision" )
     if (questionsAnswered > 0) then
         if (theBall ~= nil) and (theBall.isBodyActive == true) then
             physics.removeBody(theBall)
@@ -826,7 +826,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", MoveZombies)
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
-        timer.performWithDelay(math.random(5000,15000), MoveBirdDelay)
+        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
         
     end
 

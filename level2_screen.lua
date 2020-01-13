@@ -252,7 +252,7 @@ local function MoveBird(event)
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
+        
     end
 end
 

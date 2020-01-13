@@ -226,7 +226,7 @@ local function DisplayQuestion()
     elseif(questionSelection == 5)then
 
         --create the question
-        questionText.text = "Photosynthesis is how plants\nmake their own _______________?"
+        questionText.text = "Photosynthesis is how plants\nmake their own ________?"
 
         -- create the answer 
         answerText.text = "Food"
