@@ -278,36 +278,7 @@ function MoveBirdDelay()
 end
 
 
-local function Mute(touch)
-    if(touch.phase == "ended") then
-        
-        --pause the sound
-       
-        painSoundChannel = audio.pause(painSound)
-        coinSoundChannel = audio.pause(coinSound)
-        soundOn = false
-        --hide the mute button
-        muteButton.isVisible = false
-        --make the unmute button isVisible
-        unmuteButton.isVisible = true
-    end
-end
 
---function for when the user wants to unmute sound
-local function Unmute(touch)
-    if(touch.phase == "ended") then
-        
-        --pause the sound
-        
-        painSoundChannel = audio.resume(painSound)
-        coinSoundChannel = audio.resume(coinSound)
-        soundOn = true
-        --hide the mute button
-        muteButton.isVisible = true
-        --make the unmute button isVisible
-        unmuteButton.isVisible = false
-    end
-end
 
 
 local function onCollision( self, event )
@@ -589,26 +560,7 @@ function scene:create( event )
 
     sceneGroup:insert( zombie3 )
 
-    --Creating the mute button
-    muteButton = display.newImageRect("Images/MuteButtonUnpressedHunterC.png", 200, 200)
-    muteButton.x = 740
-    muteButton.y = 120
-    muteButton.isVisible = true
-    muteButton.width = 75
-    muteButton.height = 75
-
-    sceneGroup:insert( muteButton )
-
-    --------------------------------------------------------------------------------------------
-    --Creating the unmute button
-    unmuteButton = display.newImageRect("Images/MuteButtonPressedHunterC.png", 200, 200)
-    unmuteButton.x = 740
-    unmuteButton.y = 120
-    unmuteButton.isVisible = false
-    unmuteButton.width = 75
-    unmuteButton.height = 75
-
-    sceneGroup:insert( unmuteButton )
+    
 
 
     portalPlatform = display.newImageRect("Images/Level2PlatformHunter.png", 250, 50)
@@ -816,8 +768,6 @@ function scene:show( event )
 
         Runtime:addEventListener("enterFrame", MovePortal)
         Runtime:addEventListener("enterFrame", MoveZombies)
-        muteButton:addEventListener("touch", Mute)
-        unmuteButton:addEventListener("touch", Unmute)
         timer.performWithDelay(math.random(5000,15000), MoveBirdDelay)
     end
 
@@ -851,8 +801,7 @@ function scene:hide( event )
         RemoveRuntimeListeners()
         display.remove(character)
 
-        muteButton:removeEventListener("touch", Mute)
-        unmuteButton:removeEventListener("touch", Unmute)
+        
         Runtime:removeEventListener("enterFrame", MovePortal)
         Runtime:removeEventListener("enterFrame", MoveZombies)
 
