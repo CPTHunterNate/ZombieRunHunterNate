@@ -144,6 +144,7 @@ end
 
 local function PauseTransition( )
     composer.showOverlay("pause")
+    bird:removeEventListener( "collision" )
     character.isVisible = false
 end
 
@@ -346,8 +347,6 @@ local function onCollision( self, event )
 
             -- show overlay with math question
             composer.showOverlay( "level4_question", { isModal = true, effect = "fade", time = 100})
-            Runtime:removeEventListener("enterFrame", MoveBirdL4)
-            Runtime:removeEventListener("enterFrame", MoveBirdDelayL4)
             bird:removeEventListener( "collision" )
 
             -- Increment questions answered
@@ -472,7 +471,6 @@ function ResumeLevel4()
 
     -- make character visible again
     character.isVisible = true
-    timer.performWithDelay(math.random(7500,15000), MoveBirdDelayL4)
     bird.collision = onCollision
     bird:addEventListener( "collision" )
     if (questionsAnswered > 0) then

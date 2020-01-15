@@ -145,7 +145,7 @@ local function WinScreenTransition( )
 end
 
 local function PauseTransition( )
-    Runtime:removeEventListener("enterFrame", MoveBird)
+    bird:removeEventListener( "collision" )
     composer.showOverlay("pause")
     character.isVisible = false
 end
@@ -252,13 +252,12 @@ local function MoveBird(event)
     else
         bird.isVisible = false
         Runtime:removeEventListener("enterFrame", MoveBird)
-        
+        timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
     end
 end
 
 function MoveBirdDelay()
     bird.x = math.random(0, display.contentWidth)
-    print("***bird.x = ".. bird.x)
 
     bird.y = 0
     bird.isVisible = true
@@ -271,10 +270,7 @@ function MoveBirdDelay()
         birdScrollSpeedX = 3
         bird.xScale = 1
     end
-    print ("***birdScrollSpeedX = " .. birdScrollSpeedX)
-    print ("***bird.xScale = " .. bird.xScale)
     Runtime:addEventListener("enterFrame", MoveBird)
-    print ("***addedEventListener MoveBird")
 end
 
 
@@ -353,7 +349,7 @@ local function onCollision( self, event )
 
             -- show overlay with math question
             composer.showOverlay( "level2_question", { isModal = true, effect = "fade", time = 100})
-
+            bird:removeEventListener( "collision" )
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
         end
@@ -474,7 +470,8 @@ function ResumeLevel2()
 
     -- make character visible again
     character.isVisible = true
-    --timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
+    bird.collision = onCollision
+    bird:addEventListener( "collision" )
     if (questionsAnswered > 0) then
         if (theBall ~= nil) and (theBall.isBodyActive == true) then
             physics.removeBody(theBall)
@@ -742,15 +739,14 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
 
-        -- Called when the scene is now on screen.
-        -- Insert code here to make the scene come alive.
-        -- Example: start timers, begin animation, play audio, etc.
-
         numLives = 3
         questionsAnswered = 0
         currentLevel = 2
-        
 
+        bird.x = math.random(0, display.contentWidth)
+        bird.y = 0
+        bird.isVisible = false
+        
         -- make all Keys visible
         MakeKeysVisible()
 
