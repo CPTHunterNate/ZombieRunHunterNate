@@ -17,7 +17,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "instructions_screen"
+sceneName = "instructions"
 
 -- Creating Scene Object
 scene = composer.newScene( sceneName ) 
