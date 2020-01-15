@@ -59,7 +59,7 @@ local zombie1
 local zombie2
 local zombie3
 
-local zombie1platform
+
 local zombie2platform
 local zombie3platform
 
@@ -428,7 +428,6 @@ local function AddPhysicsBodies()
     physics.addBody( zombie2, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( zombie3, "static", { density=1.0, friction=0.3, bounce=0.2 } )    
 
-    physics.addBody( zombie1platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( zombie2platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( zombie3platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
 
@@ -456,7 +455,6 @@ local function RemovePhysicsBodies()
     physics.removeBody(zombie2)
     physics.removeBody(zombie3)
 
-    physics.removeBody(zombie1platform)
     physics.removeBody(zombie2platform)
     physics.removeBody(zombie3platform)
 
@@ -572,11 +570,7 @@ function scene:create( event )
         
     sceneGroup:insert( zombie1)
 
-    zombie1platform = display.newImageRect("Images//Level1PlatformHunter.png", 30, 125)
-    zombie1platform.x = display.contentWidth * 6.3 / 8
-    zombie1platform.y = display.contentHeight * 0.37 / 5
-        
-    sceneGroup:insert( zombie1platform)
+
 
     zombie2 = display.newImageRect("Images/ZombieNate@2x.png", 70, 150)
     zombie2.x = display.contentWidth * 2.18 / 8
