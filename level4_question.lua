@@ -69,7 +69,7 @@ local incorrectSoundChannel
 
 
 --making transition to next scene
-local function BackToLevel2() 
+local function BackToLevel4() 
     composer.hideOverlay("crossFade", 400 )
     
     ResumeLevel4()
@@ -79,12 +79,12 @@ end
 --Function for when the user gets the answer correct it will display a text saying correct and will dissappear after 1.5 seconds
 local function HideCorrect()
     correctObject.isVisible = false
-    BackToLevel2( )
+    BackToLevel4( )
 end
 
 local function HideIncorrect()
     incorrectObject.isVisible = false
-    BackToLevel2( )
+    BackToLevel4( )
 end
 
 --checking to see if the user pressed the right answer and bring them back to level 1
@@ -237,7 +237,7 @@ local function DisplayQuestion()
     elseif(questionSelection == 6) then
 
         --create the question
-        questionText.text = "An average size tree can provide\nenough wood to make how\nmany pencils?"
+        questionText.text = "An average size tree can\nprovide enough wood to make\nhow many pencils?"
 
         -- create the answer
         answerText.text ="170,000"
