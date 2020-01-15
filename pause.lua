@@ -44,13 +44,16 @@ local function MainMenuTransition( )
     composer.gotoScene("main_menu", {effect = "slideRight", time = 500 })
 end
 
-local function BackToLevel2() 
+local function BackToLevel() 
     composer.hideOverlay("crossFade", 400 )
-  
-    ResumeLevel2()
+    if(currentLevel == 2)then
+        ResumeLevel2()
+    elseif(currentLevel == 4)then
+        ResumeLevel4()
+    end
 end 
 
-local function Level2Transition( )
+local function LevelTransition( )
     if(currentLevel == 1)then
         composer.gotoScene("level1_screen")
     elseif(currentLevel == 2)then
@@ -141,7 +144,7 @@ function scene:create( event )
             overFile = "Images/ResumeButtonPressedHunter@2x.png",
 
             -- When the button is released, call the Credits transition function
-            onRelease = BackToLevel2
+            onRelease = BackToLevel
         } )  
 
         resumeButton.width = 270
@@ -158,7 +161,7 @@ function scene:create( event )
             overFile = "Images/RestartButtonPressedNate@2x.png",
 
             -- When the button is released, call the Credits transition function
-            onRelease = Level2Transition
+            onRelease = LevelTransition
         } )  
 
         restartButton.width = 270
