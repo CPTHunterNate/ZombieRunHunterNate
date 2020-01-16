@@ -64,7 +64,7 @@ local function Level1ScreenTransition( )
     elseif (currentLevel == 3) then
         composer.gotoScene("level3_screen")
     end
-end    
+end
 
 --------------------------------------------------------------------------------------
 -- The function called when the screen doesn't exist

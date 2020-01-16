@@ -218,7 +218,7 @@ end
 local function MoveZombies()
     -- move zombie2 back and forth on the platform
     zombie2.x = zombie2.x + zombie2ScrollSpeed
-    if( zombie2.x > 320)then
+    if( zombie2.x > 300)then
         zombie2ScrollSpeed = -zombie2ScrollSpeed
     elseif( zombie2.x < 190) then
         zombie2ScrollSpeed = -zombie2ScrollSpeed
