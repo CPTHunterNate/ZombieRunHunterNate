@@ -201,6 +201,7 @@ local function MoveBubbles1(event)
     -- change the transparency of the ship every time it moves so that it fades out
     bubbles1.alpha = bubbles1.alpha - 0.01
     timer.performWithDelay( 1700, FadeBubbles)
+    timer.performWithDelay(BubblesSound)
 end
 
 
@@ -660,25 +661,25 @@ function scene:create( event )
     bkg_image:toBack()    
     
     -- Insert the platforms
-    platform1 = display.newImageRect("Images//Level3platformNate@2x.png", 150, 50)
+    platform1 = display.newImageRect("Images/Level3platformNate@2x.png", 150, 50)
     platform1.x = display.contentWidth * 0.6 / 8
     platform1.y = display.contentHeight * 1.6 / 4
         
     sceneGroup:insert( platform1 )
 
-    platform2 = display.newImageRect("Images//Level3platformNate@2x.png", 150, 50)
+    platform2 = display.newImageRect("Images/Level3platformNate@2x.png", 150, 50)
     platform2.x = display.contentWidth /2.1
     platform2.y = display.contentHeight * 1.2 / 4
         
     sceneGroup:insert( platform2 )
 
-    platform3 = display.newImageRect("Images//Level3platformNate@2x.png", 180, 50)
+    platform3 = display.newImageRect("Images/Level3platformNate@2x.png", 180, 50)
     platform3.x = display.contentWidth *2.9 / 5
     platform3.y = display.contentHeight * 3.12 / 5
         
     sceneGroup:insert( platform3 )
 
-    platform4 = display.newImageRect("Images//Level3platformNate@2x.png", 100, 50)
+    platform4 = display.newImageRect("Images/Level3platformNate@2x.png", 100, 50)
     platform4.x = display.contentWidth *4.7 / 5
     platform4.y = display.contentHeight * 1.3 / 5
         
@@ -704,7 +705,7 @@ function scene:create( event )
         
     sceneGroup:insert( zombie2)
 
-    zombie2platform = display.newImageRect("Images//Level3platformNate@2x.png", 150, 50)
+    zombie2platform = display.newImageRect("Images/Level3platformNate@2x.png", 150, 50)
     zombie2platform.x = display.contentWidth * 0.72 / 8
     zombie2platform.y = display.contentHeight * 3.63 / 5
         

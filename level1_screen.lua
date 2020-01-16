@@ -1,4 +1,4 @@
------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 --
 -- level1_screen.lua
 -- Created by: Nate Day
@@ -529,25 +529,25 @@ function scene:create( event )
     sceneGroup:insert( pauseButton )
     
     -- Insert the platforms
-    platform1 = display.newImageRect("Images//Level1PlatformHunter.png", 200, 50)
+    platform1 = display.newImageRect("Images/Level1PlatformHunter.png", 200, 50)
     platform1.x = display.contentWidth * 2 / 8
     platform1.y = display.contentHeight * 1.6 / 4
         
     sceneGroup:insert( platform1 )
 
-    platform2 = display.newImageRect("Images//Level1PlatformHunter.png", 150, 50)
+    platform2 = display.newImageRect("Images/Level1PlatformHunter.png", 150, 50)
     platform2.x = display.contentWidth /2.1
     platform2.y = display.contentHeight * 1.2 / 4
         
     sceneGroup:insert( platform2 )
 
-    platform3 = display.newImageRect("Images//Level1PlatformHunter.png", 180, 50)
+    platform3 = display.newImageRect("Images/Level1PlatformHunter.png", 180, 50)
     platform3.x = display.contentWidth *2.7 / 5
     platform3.y = display.contentHeight * 3.0 / 5
         
     sceneGroup:insert( platform3 )
 
-    platform4 = display.newImageRect("Images//Level1PlatformHunter.png", 100, 50)
+    platform4 = display.newImageRect("Images/Level1PlatformHunter.png", 100, 50)
     platform4.x = display.contentWidth *4.7 / 5
     platform4.y = display.contentHeight * 1.3 / 5
         
@@ -569,7 +569,7 @@ function scene:create( event )
         
     sceneGroup:insert( zombie2)
 
-    zombie2platform = display.newImageRect("Images//Level1PlatformHunter.png", 150, 50)
+    zombie2platform = display.newImageRect("Images/Level1PlatformHunter.png", 150, 50)
     zombie2platform.x = display.contentWidth * 0.72 / 8
     zombie2platform.y = display.contentHeight * 3.63 / 5
         
