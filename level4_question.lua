@@ -275,6 +275,24 @@ local function DisplayQuestion()
         wrongText1.text = "MoonLight"
         wrongText2.text = "Wood"
         wrongText3.text = "Candy"
+    elseif(questionSelection == 10)then
+        --create the question
+        questionText.text = "What is 1 thing a plant needs\nto survive?"
+
+        answerText.text = "Sun"
+
+        wrongText1.text = "MoonLight"
+        wrongText2.text = "Wood"
+        wrongText3.text = "Dirt"
+    elseif(questionSelection == 11)then
+        --create the question
+        questionText.text = "What is 1 thing a plant needs\nto survive?"
+
+        answerText.text = "Water"
+
+        wrongText1.text = "Sand"
+        wrongText2.text = "Wood"
+        wrongText3.text = "Dirt"
     end
 end
 
@@ -366,7 +384,7 @@ function scene:create( event )
     --making a cover rectangle to have the background fully bolcked where the question is
     cover = display.newRoundedRect(display.contentCenterX, display.contentCenterY, display.contentWidth*0.8, display.contentHeight*0.95, 50 )
     --setting its colour
-    cover:setFillColor(0/255, 0/255, 153/255)
+    cover:setFillColor(0/255, 102/255, 0/255)
 
     -- create the question text object
     questionText = display.newText("", display.contentCenterX, display.contentCenterY*3/8, Arial, 60)
