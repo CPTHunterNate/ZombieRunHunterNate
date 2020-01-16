@@ -405,7 +405,7 @@ function scene:create( event )
 
     incorrectObject = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1.1/3, Arial, 40)
     incorrectObject.isVisible = false
-    incorrectObject:setFillColor(1,0,0)
+    incorrectObject:setFillColor(1,1,1)
     -----------------------------------------------------------------------------------------
 
     -- insert all objects for this scene into the scene group
