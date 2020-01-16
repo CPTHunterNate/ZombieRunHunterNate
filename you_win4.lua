@@ -30,7 +30,7 @@ end
 -----------------------------------------------------------------------------------------
 --SOUNDS
 -----------------------------------------------------------------------------------------
-local youWinSound = audio.loadSound("Sounds/youWin.mp3")
+local youWinSound = audio.loadSound("Sounds/YouWinSound.wav")
 local youWinSoundChannel
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
