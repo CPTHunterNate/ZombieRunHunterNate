@@ -153,7 +153,7 @@ local function stop (event)
 end
 
 local function ReplaceShark()
-    shark.x = display.contentWidth * 0.2 / 8
+    shark.x = display.contentWidth * -2 / 8
     shark.y = display.contentHeight  * 2.6/ 3
 
     -- prevent character from being able to tip over
@@ -573,7 +573,7 @@ local function AddPhysicsBodies()
 end
 
 local function RemovePhysicsBodies()
-    --print ("***Level 3: Called RemovePhysicsBodies")
+    print ("***Level 3: Inside RemovePhysicsBodies")
     physics.removeBody(platform1)
     physics.removeBody(platform2)
     physics.removeBody(platform3)
@@ -602,27 +602,16 @@ end
 
 function ResumeGameLevel3()
 
+    print ("***level3_screen: Inside ResumeGame")
     -- make character visible again
     character.isVisible = true
     
     if (questionsAnswered > 0) then
+        print ("***questionsAnswered = " .. questionsAnswered)
         if (theKey ~= nil) and (theKey.isBodyActive == true) then
+            print ("***removed theKey = " .. theKey.myName)
             physics.removeBody(theKey)
             theKey.isVisible = false
-        end
-    end
-
-end
-
-function ResumeLevel2()
-
-    -- make character visible again
-    character.isVisible = true
-    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
-    if (questionsAnswered > 0) then
-        if (theBall ~= nil) and (theBall.isBodyActive == true) then
-            physics.removeBody(theBall)
-            theBall.isVisible = false
         end
     end
 

@@ -471,11 +471,14 @@ end
 
 function ResumeGame()
 
+    print ("***level1_screen: Inside ResumeGame")
     -- make character visible again
     character.isVisible = true
     
     if (questionsAnswered > 0) then
+        print ("***questionsAnswered = " .. questionsAnswered)
         if (theKey ~= nil) and (theKey.isBodyActive == true) then
+            print ("***removed theKey = " .. theKey.myName)
             physics.removeBody(theKey)
             theKey.isVisible = false
         end
@@ -483,19 +486,6 @@ function ResumeGame()
 
 end
 
-function ResumeLevel2()
-
-    -- make character visible again
-    character.isVisible = true
-    timer.performWithDelay(math.random(7500,15000), MoveBirdDelay)
-    if (questionsAnswered > 0) then
-        if (theBall ~= nil) and (theBall.isBodyActive == true) then
-            physics.removeBody(theBall)
-            theBall.isVisible = false
-        end
-    end
-
-end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
